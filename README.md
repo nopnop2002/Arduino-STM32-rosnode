@@ -154,4 +154,22 @@ data: "hello world! 2132011"
 ```
 
 
+# Using other board
+rosserial_arduino_lib uses Serial object for ROS communication.   
+The hardware serial of STM32 is complicated, and the pin assignment of the Serial object has different GPIO for each model.   
+For example, BluePill/BlackPill Serial objects are assigned TX=PA9 RX=PA10, but genericSTM32F103xx Serial objects are assigned TX=PA2 RX=PA3.   
+In other words, even with the same STM32F103, depending on the build conditions, use TX=PA9 RX=PA10 or TX=PA2 RX=PA3.   
 
+__STM32F4 is especially complicated.__   
+this is an example:
+|Bord valiant|TX of Serial|RX of Serial|
+|:---|:---|:---|
+|BlackPill F401CC|PA2|PA3|
+|BlackPill F411CE|PA2|PA3|
+|STM32F405RGT6|PA0|PA1|
+|DIYMORE STM32F407VGT|PA9|PA10|
+|BLACK F407VG|PA9|PA10|
+|genericSTM32F407VGT6|PA0|PA1|
+
+The UART definition of each board cannot be understood without looking at the variant_generic.h of each board published [here](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants).   
+It is necessary to confirm the mapping of the Serial object in advance.
