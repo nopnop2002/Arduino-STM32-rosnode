@@ -189,3 +189,39 @@ This is a sample of some boards.
 |diymore_f407vgt|PB7|PB6|STM32F407VGT|
 |genericSTM32F407VGT6|PB9|PB8|STM32F407VGT|
 |disco_f407vg|PB7|PB8|STM32F407VGT|
+
+
+# Memory Usage
+This demo can't ececute with ATMega328(Uno,Nano,Promini).   
+Too little RAM.
+```
+$ pio run -e uno
+Processing uno (platform: atmelavr; board: uno; framework: arduino)
+---------------------------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/atmelavr/uno.html
+PLATFORM: Atmel AVR (4.1.0) > Arduino Uno
+HARDWARE: ATMEGA328P 16MHz, 2KB RAM, 31.50KB Flash
+DEBUG: Current (avr-stub) External (avr-stub, simavr)
+PACKAGES:
+ - framework-arduino-avr @ 5.1.0
+ - toolchain-atmelavr @ 1.70300.191015 (7.3.0)
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 9 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- Adafruit BMP085 Library @ 1.2.2
+|   |-- Adafruit BusIO @ 1.14.1
+|   |   |-- Wire @ 1.0
+|   |   |-- SPI @ 1.0
+|   |-- Wire @ 1.0
+|-- SPI @ 1.0
+|-- ros_lib
+|   |-- SPI @ 1.0
+Building in release mode
+Checking size .pio/build/uno/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [==========]  99.1% (used 2029 bytes from 2048 bytes)
+Flash: [======    ]  60.0% (used 19358 bytes from 32256 bytes)
+```
