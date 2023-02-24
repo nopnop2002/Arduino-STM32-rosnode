@@ -115,10 +115,10 @@ When the PlatformIO host and ROS host are the same, it will be as follows:
 |      GND |---------|GND       |         |          |
 |      PA13|---------|SWDIO     |         |          |
 |      PA14|---------|SWCLK     |         |          |
-+----------+         +----------+         |          |
-                                          |          |
-+----------+         +----------+         |          |
-|  STM32   |   UART  | UART-USB |  USB    |          |
+|          |         +----------+         |          |
+|          |                              |          |
+|          |         +----------+         |          |
+|          |   UART  | UART-USB |  USB    |          |
 |      PA9 |---------|RX        |=========|          |
 |      PA10|---------|TX        |         |          |
 |      GND |---------|GND       |         |          |
