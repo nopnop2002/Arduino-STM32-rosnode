@@ -133,6 +133,13 @@ $ roscore
 ### Terminal 2
 ```
 $ rosrun rosserial_python serial_node.py _port:=/dev/ttyUSB0 _baud:=115200
+[INFO] [1677197464.818522]: ROS Serial Python Node
+[INFO] [1677197464.827333]: Connecting to /dev/ttyUSB0 at 115200 baud
+[INFO] [1677197466.935209]: Requesting topics...
+[INFO] [1677197467.339121]: Note: publish buffer size is 512 bytes
+[INFO] [1677197467.341800]: Setup publisher on chatter [std_msgs/String]
+[INFO] [1677197467.348600]: Note: subscribe buffer size is 512 bytes
+[INFO] [1677197467.350585]: Setup subscriber on led [std_msgs/Bool]
 ```
 
 ### Terminal 3
