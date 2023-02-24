@@ -14,6 +14,13 @@ A demo that captures data from an i2c sensor and includes it in ROS.
 
 - BMP085 Digital pressure sensor   
 
+# Wireing to sensor
+|BMP085||STM32|
+|:---|:---|:---|
+|3V3||3.3V|
+|GND||GND|
+|SDA||PB7|
+|SCL||PB6|
 
 # Build Firmware
 Connect ST-LINK adapter and STM32.
@@ -49,15 +56,6 @@ Build Firmware for generic board
 $ cd ..
 $ pio run -e genericSTM32F103C8 -t upload
 ```
-
-
-# Wireing to sensor
-|BMP085||STM32|
-|:---|:---|:---|
-|3V3||3.3V|
-|GND||GND|
-|SDA||PB7|
-|SCL||PB6|
 
 
 # Starting a ROS node
