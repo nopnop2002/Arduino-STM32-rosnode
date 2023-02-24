@@ -164,6 +164,9 @@ __STM32F4 is especially complicated.__
 this is an example:
 |Bord valiant|TX of Serial|RX of Serial|MCU|
 |:---|:---|:---|:---|
+|blackpill_f103c8|PA9|PA10|STM32F103C8|
+|blackpill_f103c8|PA9|PA10|STM32F103C8|
+|genericSTM32F103C8|PA2|PA3|STM32F103C8|
 |blackpill_f401cc|PA9|PA10|STM32F401CC|
 |genericSTM32F401CC|PA2|PA3|STM32F401CC|
 |blackpill_f411ce|PA9|PA10|STM32F411CE|
