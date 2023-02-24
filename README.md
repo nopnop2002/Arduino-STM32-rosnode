@@ -8,6 +8,7 @@ ATMega2560 is fine, but the board is too big.
 
 We can use compact and powerful STM32 Development Board as rosnode.   
 STM32 has enough memory to run rosnode and is much faster than ATMega.   
+Arduino environment has many libraries that we can use.
 
 # Development environment
 - ROS Melodic   
