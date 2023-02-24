@@ -7,7 +7,7 @@ However, ATMega328 is not suitable as rosnode because memory is too small.
 ATMega2560 is fine, but the board is too big.
 
 We can use compact and powerful STM32 Development Board as rosnode.   
-STM32 has enough memory for rosnode and runs much faster than ATMega.   
+STM32 has enough memory to run rosnode and is much faster than ATMega.   
 
 # Development environment
 - ROS Melodic   
