@@ -162,7 +162,7 @@ In other words, even with the same STM32F103C8, the GPIO of Sirial changes depen
 In addition, serial GPIOs can be remapped to alternate pins using code in your application.   
 
 __STM32F4 is especially complicated.__   
-This is an example of when not doing remapped.
+This is a sample of some boards.   
 |Bord valiant|TX of Serial|RX of Serial|MCU|
 |:---|:---|:---|:---|
 |blackpill_f103c8|PA9|PA10|STM32F103C8|
