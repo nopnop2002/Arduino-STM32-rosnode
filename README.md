@@ -172,6 +172,7 @@ this is an example:
 |diymore_f407vgt|PA9|PA10|STM32F407VGT|
 |black_f407vg|PA2|PA3|STM32F407VGT|
 |genericSTM32F407VGT6|PA0|PA1|STM32F407VGT|
+|disco_f407vg|PA2|PA3|STM32F407VGT|
 
 The UART definition of each board cannot be understood without looking at the variant_generic.h of each board published [here](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants).   
 Some definitions are intended only for specific boards, such as variant_DIYMORE_F407VGT.h and variant_BLACK_F407VX.h.   
