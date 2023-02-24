@@ -51,7 +51,7 @@ $ sudo reboot
 ```
 
 # Build Firmware
-Connect ST-LINK adapter and STM32.
+Connect ST-LINK adapter and STM32.   
 ```
 +----------+         +----------+         +----------+
 |  STM32   |         | ST-LINK  |  USB    |   Host   |
@@ -60,6 +60,12 @@ Connect ST-LINK adapter and STM32.
 |      PA13|---------|SWDIO     |         |          |
 |      PA14|---------|SWCLK     |         |          |
 +----------+         +----------+         +----------+
+```
+
+/dev/stlinkv2* device files are generated.   
+```
+$ ls /dev/stlinkv2*
+/dev/stlinkv2_4
 ```
 
 Build rosserial_arduino Library
