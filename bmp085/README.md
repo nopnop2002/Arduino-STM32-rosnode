@@ -166,6 +166,13 @@ data: 101456
 ---
 ```
 
+### Visualization
+```
+rqt_plt rqt_plt /temperature
+```
+
+![temp_2023-02-24_18-03-12](https://user-images.githubusercontent.com/6020549/221137716-3fa455c8-ec5d-41a8-9370-4f6f03f4caed.png)
+
 
 # Using other board
 The hardware I2C of STM32 is complicated, and the pin assignment of the I2C has different GPIO for each valiant.   
