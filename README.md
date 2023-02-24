@@ -166,10 +166,10 @@ this is an example:
 |:---|:---|:---|
 |BlackPill F401CC|PA2|PA3|
 |BlackPill F411CE|PA2|PA3|
-|STM32F405RGT6|PA0|PA1|
-|DIYMORE STM32F407VGT|PA9|PA10|
-|BLACK F407VG|PA9|PA10|
-|genericSTM32F407VGT6|PA0|PA1|
+|genericSTM32F405xx|PA0|PA1|
+|diymore_f407vgt|PA9|PA10|
+|black_f407xx|PA9|PA10|
+|genericSTM32F407xx|PA0|PA1|
 
 The UART definition of each board cannot be understood without looking at the variant_generic.h of each board published [here](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants).   
 It is necessary to confirm the mapping of the Serial object in advance.
