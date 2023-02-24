@@ -167,18 +167,17 @@ The i2c definition of each board cannot be understood without looking at the var
 STM32F4 is especially complicated.   
 It is necessary to confirm the mapping of the i2c gpio in advance.   
 This is a sample of some boards.   
-|Bord valiant|SDA|SCL|
-|:---|:---|:---|
-|blackpill_f103c8|PB7|PB6|
-|bluepill_f103c8|PB7|PB6|
-|genericSTM32F103xx|PB7|PB6|
-|genericSTM32F303xx|PB7|PB6|
-|blackpill_f401cc|PB7|PB6|
-|genericSTM32F401CC|PB3|PB10|
-|blackpill_f411ce|PB7|PB6|
-|genericSTM32F411CE|PB3|PB10|
-|genericSTM32F405RG|PB7|PB6|
-|black_f407vg|PB9|PB8|
-|diymore_f407vgt|PB7|PB6|
-|genericSTM32F407VGT6|PB9|PB8|
-|disco_f407vg|PB7|PB8|
+|Bord valiant|SDA|SCL|MCU|
+|:---|:---|:---|:---|
+|blackpill_f103c8|PB7|PB6|STM32F103C8|
+|bluepill_f103c8|PB7|PB6|STM32F103C8|
+|genericSTM32F103C8|PB7|PB6|STM32F103C8|
+|blackpill_f401cc|PB7|PB6|STM32F401CC|
+|genericSTM32F401CC|PB3|PB10|STM32F401CC
+|blackpill_f411ce|PB7|PB6|STM32F411CE|
+|genericSTM32F411CE|PB3|PB10|STM32F411CE|
+|genericSTM32F405RG|PB7|PB6|STM32F405RG|
+|black_f407vg|PB9|PB8|STM32F407VGT|
+|diymore_f407vgt|PB7|PB6|STM32F407VGT|
+|genericSTM32F407VGT6|PB9|PB8|STM32F407VGT|
+|disco_f407vg|PB7|PB8|STM32F407VGT|
