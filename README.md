@@ -184,3 +184,32 @@ This is a sample of some boards.
 The UART definition of each board cannot be understood without looking at the variant_generic.h of each board published [here](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants).   
 Some definitions are intended only for specific boards, such as variant_DIYMORE_F407VGT.h and variant_BLACK_F407VX.h.   
 It is necessary to confirm the mapping of the Serial object in advance.
+
+
+# Default upload protocol
+There are variants where the default protocol is not ST-LINK.   
+[Here](https://docs.platformio.org/en/stable/boards/ststm32/genericSTM32F405RG.html) is the documentation for the generic STM32F405RG but the default write protocol is serial.   
+It would be a mistake to think that all STM32 have ST-LINK as the default protocol.   
+If you look closely at the messages when writing, you can see that the upload_protocol is serial.   
+```
+Configuring upload protocol...
+AVAILABLE: blackmagic, dfu, jlink, serial, stlink
+CURRENT: upload_protocol = serial
+Looking for upload port...
+
+Warning! Please install `99-platformio-udev.rules`.
+More details: https://docs.platformio.org/page/faq.html#platformio-udev-rules
+
+Error: Please specify `upload_port` for environment or use global `--upload-port` option.
+For some development platforms it can b
+```
+
+If ST-LINK is not the default protocol, you need to specify the protocol as follows.
+```
+[env:genericSTM32F405RG]
+platform = ststm32
+board = genericSTM32F405RG
+framework = arduino
+upload_protocol = stlink
+```
+
