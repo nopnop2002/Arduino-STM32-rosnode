@@ -171,7 +171,7 @@ data: 101456
 rqt_plt rqt_plt /temperature
 ```
 
-![temp_2023-02-24_18-03-12](https://user-images.githubusercontent.com/6020549/221137716-3fa455c8-ec5d-41a8-9370-4f6f03f4caed.png)
+![temp_2023-02-24_18-03-12](https://user-images.githubusercontent.com/6020549/221138164-22929878-2e08-4728-8d91-b9552490e441.png)
 
 
 # Using other board
