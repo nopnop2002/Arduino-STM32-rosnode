@@ -158,7 +158,7 @@ data: "hello world! 2132011"
 rosserial_arduino_lib uses Serial object for ROS communication.   
 The hardware serial of STM32 is complicated, and the pin assignment of the Serial object has different GPIO for each valiant.   
 For example, blackpill_f103c8/bluepill_f103c8 Serial objects are assigned TX=PA9 RX=PA10, but genericSTM32F103C8 Serial objects are assigned TX=PA2 RX=PA3.   
-In other words, even with the same STM32F103C8, depending on the build conditions, use TX=PA9 RX=PA10 or TX=PA2 RX=PA3.   
+In other words, even with the same STM32F103C8, the GPIO of Sirial changes depending on the build conditions.   
 
 __STM32F4 is especially complicated.__   
 this is an example:
