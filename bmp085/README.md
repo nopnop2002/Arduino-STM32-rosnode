@@ -4,7 +4,15 @@ A demo that captures data from an i2c sensor and includes it in ROS.
 
 
 # Hardware requirements
-- BMP085 Digital pressure sensor
+- STM32 Development Board like Bluepill/Blackpill  
+
+- Inexpensive Chinese ST-LINK adapter   
+![ST-LINK-1](https://user-images.githubusercontent.com/6020549/221065783-33508ebe-2454-4033-92f8-34c00fe0eb80.JPG)
+![platformio-2](https://user-images.githubusercontent.com/6020549/221065793-a32da243-946a-4cf4-9655-1347a229d6eb.JPG)
+
+- UART-USB converter module   
+
+- BMP085 Digital pressure sensor   
 
 
 # Build Firmware
