@@ -16,7 +16,7 @@ STM32 has enough memory for rosnode and runs much faster than ATMega.
 
 
 # Hardware requirements
-- STM32 Development Board like bluepill/Blackpill  
+- STM32 Development Board like Bluepill/Blackpill  
 
 - Inexpensive Chinese ST-LINK adapter   
 ![ST-LINK-1](https://user-images.githubusercontent.com/6020549/221065783-33508ebe-2454-4033-92f8-34c00fe0eb80.JPG)
