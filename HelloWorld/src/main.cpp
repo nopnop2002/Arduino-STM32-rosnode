@@ -3,7 +3,7 @@
 #include <std_msgs/String.h>
 #include <std_msgs/Bool.h>
 
-//有ってもSerial1が使われない
+//Serial1 is not used even if there is
 //#define USE_STM32_HW_SERIAL
 
 ros::NodeHandle  nh;
