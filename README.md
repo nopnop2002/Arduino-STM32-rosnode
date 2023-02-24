@@ -174,4 +174,5 @@ this is an example:
 |genericSTM32F407VGT6|PA0|PA1|STM32F407VGT|
 
 The UART definition of each board cannot be understood without looking at the variant_generic.h of each board published [here](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants).   
+Some definitions are intended only for specific boards, such as variant_DIYMORE_F407VGT.h and variant_BLACK_F407VX.h.   
 It is necessary to confirm the mapping of the Serial object in advance.
