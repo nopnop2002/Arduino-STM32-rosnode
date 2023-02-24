@@ -162,14 +162,16 @@ In other words, even with the same STM32F103, depending on the build conditions,
 
 __STM32F4 is especially complicated.__   
 this is an example:
-|Bord valiant|TX of Serial|RX of Serial|
-|:---|:---|:---|
-|BlackPill F401CC|PA2|PA3|
-|BlackPill F411CE|PA2|PA3|
-|genericSTM32F405xx|PA0|PA1|
-|diymore_f407vgt|PA9|PA10|
-|black_f407xx|PA9|PA10|
-|genericSTM32F407xx|PA0|PA1|
+|Bord valiant|TX of Serial|RX of Serial|MCU|
+|:---|:---|:---|:---|
+|blackpill_f401cc|PA9|PA10|STM32F401CC|
+|genericSTM32F401CC|PA2|PA3|STM32F401CC|
+|blackpill_f411ce|PA9|PA10|STM32F411CE|
+|genericSTM32F411CE|PA2|PA3|STM32F411CE|
+|genericSTM32F405RG|PA0|PA1|STM32F405RG|
+|diymore_f407vgt|PA9|PA10|STM32F407VGT|
+|black_f407vg|PA2|PA3|STM32F407VGT|
+|genericSTM32F407VGT6|PA0|PA1|STM32F407VGT|
 
 The UART definition of each board cannot be understood without looking at the variant_generic.h of each board published [here](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants).   
 It is necessary to confirm the mapping of the Serial object in advance.
