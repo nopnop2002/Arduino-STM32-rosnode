@@ -113,13 +113,14 @@ $ rosrun rosserial_python serial_node.py _port:=/dev/ttyUSB0 _baud:=115200
 ### Terminal 3
 ```
 $ rostopic echo /chatter
-data: "hello world! 2131011"
+data: "Temperature = 19.10 *C"
 ---
-data: "hello world! 2131511"
+data: "Pressure = 101436 Pa"
 ---
-data: "hello world! 2132011"
+data: "Altitude =  -9.82 meters"
 ---
-
+data: "Pressure at sealevel (calculated) = 101444 Pa"
+---
 
 $ rostopic echo /temperature
 data: 19.0
@@ -159,8 +160,12 @@ data: 101456
 
 
 # Using other board
-STM32 SCA and SDA are valiant dependent.   
+The hardware I2C of STM32 is complicated, and the pin assignment of the I2C has different GPIO for each valiant.   
+For example, i2c of blackpill_f401cc is assigned PB7/PB6, but i2c of genericSTM32F401CC is assigned PB3/PB10.   
 The i2c definition of each board cannot be understood without looking at the variant_generic.h of each board published [here](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants).   
+
+STM32F4 is especially complicated.
+It is necessary to confirm the mapping of the i2c gpio in advance.   
 This is a sample of some boards.   
 |Bord valiant|SDA|SCL|
 |:---|:---|:---|
