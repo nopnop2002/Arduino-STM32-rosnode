@@ -4,7 +4,7 @@ rosnode example using STM32.
 rosserial_arduino_lib allows you to communicate with Arduino environments such as ATMega328(UNO,Nano,ProMini) and ATMega2560(MEGA) via serial.   
 Data from various sensors can be imported into ROS using Arduino.   
 However, ATMega328 is not suitable as rosnode because memory is too small.   
-The ATMega2560 is fine, but the board is too big.
+ATMega2560 is fine, but the board is too big.
 
 We can use compact and powerful STM32 Development Board as rosnode.   
 STM32 has enough memory for rosnode and runs much faster than ATMega.   
@@ -61,10 +61,12 @@ Connect ST-LINK adapter and STM32.
 
 Build rosserial_arduino Library
 ```
-$ git clone
-$ cd xxx/HelloWorld
+$ git clone https://github.com/nopnop2002/Arduino-STM32-rosnode
+$ cd Arduino-STM32-rosnode/HelloWorld
 $ cd lib
 $ rosrun rosserial_arduino make_libraries.py .
+$ ls
+README  ros_lib
 ```
 
 
@@ -88,11 +90,12 @@ $ pio run -e genericSTM32F103C8 -t upload
 Connect STM32 and ROS HOST using UART-USB converter.
 
 ```
-Built with pill board
+Build with pill board
 +----------+         +----------+         +----------+
 |  STM32   |   UART  | UART-USB |  USB    | ROS HOST |
 |      PA9 |---------|RX        |=========|          |
 |      PA10|---------|TX        |         |          |
+|      GND |---------|GND       |         |          |
 +----------+         +----------+         +----------+
 
 Build with generic board
@@ -100,8 +103,28 @@ Build with generic board
 |  STM32   |   UART  | UART-UART|  USB    | ROS HOST |
 |      PA2 |---------|RX        |=========|          |
 |      PA3 |---------|TX        |         |          |
+|      GND |---------|GND       |         |          |
 +----------+         +----------+         +----------+
 ```
+
+When the PlatformIO host and ROS host are the same, it will be as follows:
+```
++----------+         +----------+         +----------+
+|  STM32   |         | ST-LINK  |  USB    | ROS Host |
+|      3.3V|---------|3.3V      |=========|          |
+|      GND |---------|GND       |         |          |
+|      PA13|---------|SWDIO     |         |          |
+|      PA14|---------|SWCLK     |         |          |
++----------+         +----------+         |          |
+                                          |          |
++----------+         +----------+         |          |
+|  STM32   |   UART  | UART-USB |  USB    |          |
+|      PA9 |---------|RX        |=========|          |
+|      PA10|---------|TX        |         |          |
+|      GND |---------|GND       |         |          |
++----------+         +----------+         +----------+
+```
+
 ### Terminal 1
 ```
 $ roscore
