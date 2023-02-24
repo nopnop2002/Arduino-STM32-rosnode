@@ -21,6 +21,7 @@ Arduino environment has many libraries that we can use.
  Supported boards is [here](https://github.com/stm32duino/Arduino_Core_STM32).   
 
 - Inexpensive Chinese ST-LINK adapter   
+ Available on eBay and AliExpress for $2.   
 ![ST-LINK-1](https://user-images.githubusercontent.com/6020549/221065783-33508ebe-2454-4033-92f8-34c00fe0eb80.JPG)
 ![platformio-2](https://user-images.githubusercontent.com/6020549/221065793-a32da243-946a-4cf4-9655-1347a229d6eb.JPG)
 
