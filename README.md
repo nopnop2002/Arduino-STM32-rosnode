@@ -187,7 +187,7 @@ It is necessary to confirm the mapping of the Serial object in advance.
 
 
 # Default upload protocol
-There are variants where the default protocol is not ST-LINK.   
+There are variants where the default upload protocol is not ST-LINK.   
 [Here](https://docs.platformio.org/en/stable/boards/ststm32/genericSTM32F405RG.html) is the documentation for the generic STM32F405RG but the default write protocol is serial.   
 It would be a mistake to think that all STM32 have ST-LINK as the default protocol.   
 If you look closely at the messages when writing, you can see that the upload_protocol is serial.   
