@@ -187,7 +187,7 @@ This is a sample of some boards.
 |genericSTM32F407VGT6|PA4|PA7|PA6|PA5|STM32F407VGT|
 |disco_f407vg|PB12|PA7|PA6|PA5|STM32F407VGT|
 
-(*) I can't use it because I'm using it with the onboard NRF24 connector.   
+(*) It cannot be used because it is used with the onboard NRF24 connector.
 
 # Memory Usage
 This demo can't ececute with ATMega328(Uno,Nano,Promini).   
