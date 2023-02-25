@@ -174,7 +174,7 @@ It is necessary to confirm the mapping of the i2c gpio in advance.
 This is a sample of some boards.   
 |Bord valiant|SS|MOSI|MISO|SCK|MCU|
 |:---|:---|:---|:---|:---|:---|
-|blackpill_f103c8|PB7|PB6|STM32F103C8|
+|blackpill_f103c8|PA4|PA7|PA6|PA5|STM32F103C8|
 |bluepill_f103c8|PA4|PA7|PA6|PA5|STM32F103C8|
 |genericSTM32F103C8|PA4|PA7|PA6|PA5|STM32F103C8|
 |blackpill_f401cc|PA4|PA7|PA6|PA5|STM32F401CC|
