@@ -1,5 +1,5 @@
-# mpu9250 rosnode
-A demo that captures data from an i2c sensor and includes it in ROS.   
+# bmp280 rosnode
+A demo that captures data from an SPI sensor and includes it in ROS.   
 
 
 
@@ -12,15 +12,8 @@ A demo that captures data from an i2c sensor and includes it in ROS.
 
 - UART-USB converter module   
 
-- MPU9250 9-axis MotionTracking device   
+- BMP280 Digital pressure sensor   
 
-# Wireing to sensor
-|MPU9250||STM32|
-|:---|:---|:---|
-|3V3||3.3V|
-|GND||GND|
-|SDA||PB7|
-|SCL||PB6|
 
 # Build Firmware
 Connect ST-LINK adapter and STM32.
@@ -37,7 +30,7 @@ Connect ST-LINK adapter and STM32.
 Build rosserial_arduino Library
 ```
 $ git clone https://github.com/nopnop2002/Arduino-STM32-rosnode
-$ cd Arduino-STM32-rosnode/mpu9250
+$ cd Arduino-STM32-rosnode/bmp280
 $ cd lib
 $ rosrun rosserial_arduino make_libraries.py .
 $ ls
@@ -56,6 +49,17 @@ Build Firmware for generic board
 $ cd ..
 $ pio run -e genericSTM32F103C8 -t upload
 ```
+
+
+# Wireing to sensor
+|BMP280||STM32||
+|:---|:---|:---|:---|
+|3V3||3.3V||
+|GND||GND||
+|SCL||PA5|SPI SCK|
+|SDA||PA7|SPI MOSI|
+|CSB||PA4|SPI CS|
+|SDO||PA6|SPI MISO|
 
 
 # Starting a ROS node
@@ -119,120 +123,82 @@ $ rosrun rosserial_python serial_node.py _port:=/dev/ttyUSB0 _baud:=115200
 ### Terminal 3
 ```
 $ rostopic echo /chatter
-data: "sensorId: 113"
+data: "Temperature = 19.10 *C"
 ---
-data: "accelX:  0.046387 accelY: -0.017090 accelZ: -0.982422"
+data: "Pressure = 101436 Pa"
 ---
-data: "gyroX:  0.427246 gyroY: -0.488281 gyroZ:  0.976563"
+data: "Altitude =  -9.82 meters"
 ---
-data: "magX: -3.632813 magY: 51.566406 magZ:  5.820312 horizontal direction: -4.029788"
+data: "Pressure at sealevel (calculated) = 101444 Pa"
 ---
 
-$ rostopic echo /imu/data_raw
-header:
-  seq: 1299
-  stamp:
-    secs: 1677280248
-    nsecs: 177066884
-  frame_id: "imu"
-orientation:
-  x: 0.0
-  y: 0.0
-  z: 0.0
-  w: 0.0
-orientation_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-angular_velocity:
-  x: 0.42724609375
-  y: -0.30517578125
-  z: 1.0986328125
-angular_velocity_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-linear_acceleration:
-  x: 0.04833984375
-  y: -0.01220703125
-  z: -0.99072265625
-linear_acceleration_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+$ rostopic echo /temperature
+data: 19.0
+---
+data: 19.0
+---
+data: 19.1000003815
 ---
 
 
-$ rostopic echo /imu/mag
-header:
-  seq: 1
-  stamp:
-    secs: 1677280291
-    nsecs: 667997104
-  frame_id: "imu"
-magnetic_field:
-  x: -3.6328125
-  y: 51.56640625
-  z: 5.8203125
-magnetic_field_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+$ rostopic echo /pressure
+data: 101441
+---
+data: 101449
+---
+data: 101449
+---
+
+
+$ rostopic echo /altitude
+data: -11.3164596558
+---
+data: -11.0673265457
+---
+data: -10.3188858032
+---
+
+
+$ rostopic echo /sealeve
+data: 101452
+---
+data: 101453
+---
+data: 101456
 ---
 ```
 
-### Conversion to Quatanion
+### Visualization
 ```
-$ sudo apt-get install ros-melodic-imu-tools
-
-# don't use mag data
-$ rosrun imu_filter_madgwick imu_filter_node _use_mag:=false _publish_tf:=false _world_frame:="enu"
-
-# use mag data
-$ rosrun imu_filter_madgwick imu_filter_node _use_mag:=true _publish_tf:=false _world_frame:="enu"
+rqt_plt rqt_plt /temperature
 ```
 
-### Show Quatanion
-Data will drift without calibration.   
-```
-$ rostopic echo /imu/data
-header:
-  seq: 176
-  stamp:
-    secs: 1677107817
-    nsecs: 473739017
-  frame_id: "imu"
-orientation:
-  x: 0.626041507241
-  y: -0.778182179409
-  z: -0.0456474441657
-  w: 0.0205143292187
-orientation_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-angular_velocity:
-  x: -0.30517578125
-  y: 0.0
-  z: 0.06103515625
-angular_velocity_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-linear_acceleration:
-  x: -0.00048828125
-  y: -0.00634765625
-  z: -0.97119140625
-linear_acceleration_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
----
-```
+![temp_2023-02-24_18-03-12](https://user-images.githubusercontent.com/6020549/221138164-22929878-2e08-4728-8d91-b9552490e441.png)
 
 
 # Using other board
-The hardware I2C of STM32 is complicated, and the pin assignment of the I2C has different GPIO for each valiant.   
-For example, i2c of blackpill_f401cc is assigned PB7/PB6, but i2c of genericSTM32F401CC is assigned PB3/PB10.   
-The i2c definition of each board cannot be understood without looking at the variant_generic.h of each board published [here](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants).   
+The hardware SPI of STM32 is complicated, and the pin assignment of the SPI has different GPIO for each valiant.   
+The SPI definition of each board cannot be understood without looking at the variant_generic.h of each board published [here](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants).   
 
 __STM32F4 is especially complicated.__   
 It is necessary to confirm the mapping of the i2c gpio in advance.   
 This is a sample of some boards.   
-|Bord valiant|SDA|SCL|MCU|
-|:---|:---|:---|:---|
+|Bord valiant|SS|MOSI|MISO|SCK|MCU|
+|:---|:---|:---|:---|:---|:---|
 |blackpill_f103c8|PB7|PB6|STM32F103C8|
-|bluepill_f103c8|PB7|PB6|STM32F103C8|
-|genericSTM32F103C8|PB7|PB6|STM32F103C8|
-|blackpill_f401cc|PB7|PB6|STM32F401CC|
-|genericSTM32F401CC|PB3|PB10|STM32F401CC
-|blackpill_f411ce|PB7|PB6|STM32F411CE|
-|genericSTM32F411CE|PB3|PB10|STM32F411CE|
-|genericSTM32F405RG|PB7|PB6|STM32F405RG|
-|black_f407vg|PB9|PB8|STM32F407VGT|
-|diymore_f407vgt|PB7|PB6|STM32F407VGT|
-|genericSTM32F407VGT6|PB9|PB8|STM32F407VGT|
-|disco_f407vg|PB7|PB8|STM32F407VGT|
+|bluepill_f103c8|PA4|PA7|PA6|PA5|STM32F103C8|
+|genericSTM32F103C8|PA4|PA7|PA6|PA5|STM32F103C8|
+|blackpill_f401cc|PA4|PA7|PA6|PA5|STM32F401CC|
+|genericSTM32F401CC|PA4|PA7|PA6|PA5|STM32F401CC
+|blackpill_f411ce|PA4|PA7|PA6|PA5|STM32F411CE|
+|genericSTM32F411CE|PB12|PA1|PA11|PA13|STM32F411CE|
+|genericSTM32F405RG|PA4|PA7|PA6|PA5|STM32F405RG|
+|black_f407vg|PB7(*)|PB5|PB4|PB3|STM32F407VGT|
+|diymore_f407vgt|PB6|PB5|PB4|PB3|STM32F407VGT|
+|genericSTM32F407VGT6|PA4|PA7|PA6|PA5|STM32F407VGT|
+|disco_f407vg|PB12|PA7|PA6|PA5|STM32F407VGT|
 
+(*) I can't use it because I'm using it with the onboard NRF24 connector.   
 
 # Memory Usage
 This demo can't ececute with ATMega328(Uno,Nano,Promini).   
@@ -251,16 +217,23 @@ PACKAGES:
  - toolchain-atmelavr @ 1.70300.191015 (7.3.0)
 LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
 LDF Modes: Finder ~ chain, Compatibility ~ soft
-Found 7 compatible libraries
+Found 9 compatible libraries
 Scanning dependencies...
 Dependency Graph
-|-- MPU9250_asukiaaa @ 1.5.12
+|-- Adafruit BMP280 Library @ 2.6.6
+|   |-- Adafruit Unified Sensor @ 1.1.7
+|   |-- Adafruit BusIO @ 1.14.1
+|   |   |-- Wire @ 1.0
+|   |   |-- SPI @ 1.0
 |   |-- Wire @ 1.0
+|   |-- SPI @ 1.0
+|-- SPI @ 1.0
+|-- Wire @ 1.0
 |-- ros_lib
 |   |-- SPI @ 1.0
 Building in release mode
 Checking size .pio/build/uno/firmware.elf
 Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
-RAM:   [==========]  119.1% (used 2439 bytes from 2048 bytes)
-Flash: [=======   ]  67.7% (used 21846 bytes from 32256 bytes)
+RAM:   [========= ]  94.4% (used 1934 bytes from 2048 bytes)
+Flash: [=======   ]  69.7% (used 22468 bytes from 32256 bytes)
 ```
