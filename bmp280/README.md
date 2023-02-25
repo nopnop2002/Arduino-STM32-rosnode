@@ -123,48 +123,37 @@ $ rosrun rosserial_python serial_node.py _port:=/dev/ttyUSB0 _baud:=115200
 ### Terminal 3
 ```
 $ rostopic echo /chatter
-data: "Temperature = 19.10 *C"
+data: "Temperature = 14.63 *C"
 ---
-data: "Pressure = 101436 Pa"
+data: "Pressure = 102229.39 Pa"
 ---
-data: "Altitude =  -9.82 meters"
+data: "Approx altitude = -75.03 m"
 ---
-data: "Pressure at sealevel (calculated) = 101444 Pa"
----
+
 
 $ rostopic echo /temperature
-data: 19.0
+data: 14.6499996185
 ---
-data: 19.0
+data: 14.6499996185
 ---
-data: 19.1000003815
+data: 14.6499996185
 ---
-
 
 $ rostopic echo /pressure
-data: 101441
+data: 102226.703125
 ---
-data: 101449
+data: 102226.875
 ---
-data: 101449
+data: 102227.046875
 ---
 
 
 $ rostopic echo /altitude
-data: -11.3164596558
+data: -75.280960083
 ---
-data: -11.0673265457
+data: -75.280960083
 ---
-data: -10.3188858032
----
-
-
-$ rostopic echo /sealeve
-data: 101452
----
-data: 101453
----
-data: 101456
+data: -75.2669830322
 ---
 ```
 
