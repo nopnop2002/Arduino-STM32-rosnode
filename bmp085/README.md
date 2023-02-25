@@ -174,8 +174,8 @@ rqt_plt rqt_plt /temperature
 
 # Using other board
 The hardware I2C of STM32 is complicated, and the pin assignment of the I2C has different GPIO for each valiant.   
-For example, i2c of blackpill_f401cc is assigned PB7/PB6, but i2c of genericSTM32F401CC is assigned PB3/PB10.   
-The i2c definition of each board cannot be understood without looking at the variant_generic.h of each board published [here](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants).   
+For example, I2C of blackpill_f401cc is assigned PB7/PB6, but I2C of genericSTM32F401CC is assigned PB3/PB10.   
+The I2C definition of each board cannot be understood without looking at the variant_generic.h of each board published [here](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants).   
 
 __STM32F4 is especially complicated.__   
 It is necessary to confirm the mapping of the i2c gpio in advance.   
