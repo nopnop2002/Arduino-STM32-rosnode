@@ -12,7 +12,7 @@ A demo that captures data from an i2c sensor and includes it in ROS.
 
 - UART-USB converter module   
 
-- MPU9250 9-axis MotionTracking device   
+- MPU9250 9DoF MotionTracking device   
 
 
 # Build Firmware
