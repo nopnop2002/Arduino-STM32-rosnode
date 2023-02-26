@@ -211,7 +211,7 @@ linear_acceleration_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 ---
 ```
 
-### Show Quatanion using rviz
+### View Quatanion using rviz
 Using rviz_imu_plugin you can directly see the result of ImuFilter.   
 - start rviz   
 - Add->rviz_imu_plugin->Imu   
