@@ -2,7 +2,7 @@
 A demo that captures data from an ultrasonic sensor and includes it in ROS.   
 
 # Hardware requirements
-- STM32 Development Board with 5V pin header. 
+- STM32 Development Board with 5V pin header.   
  BlackPill does not have a 5V pin header, so it cannot be used.   
 
 - Inexpensive Chinese ST-LINK adapter   
@@ -12,6 +12,7 @@ A demo that captures data from an ultrasonic sensor and includes it in ROS.
 - UART-USB converter module   
 
 - Ultrasonic Sensor like HC-SR04/US-015/HY-SRF05   
+![HY-SRF05-3](https://user-images.githubusercontent.com/6020549/221387700-94149b81-7b76-46b3-b8aa-5d9773995328.JPG)
 
 # Wireing to sensor
 |Ultrasonic||STM32|
@@ -26,6 +27,8 @@ Must be FT GPIO.
 STM32 has a terminal that can accept a 5V voltage signal.   
 The specific terminal is described as "FT" (Five voltage Tolerant) in the datasheet.   
 Even if the power supply voltage of the microcomputer is 3.6V or less, 5V voltage can be applied to this pin.   
+
+![STM32F103-5V-FT](https://user-images.githubusercontent.com/6020549/221387743-dda3d5dd-442c-4344-b305-b7ecca230eba.jpg)
 
 # Build Firmware
 Connect ST-LINK adapter and STM32.
