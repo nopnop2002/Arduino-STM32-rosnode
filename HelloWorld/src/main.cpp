@@ -9,14 +9,25 @@
 ros::NodeHandle  nh;
 std_msgs::String str_msg;
 ros::Publisher chatter("chatter", &str_msg);
-//char hello[13] = "hello world!";
+char wk[64];
 
 void led_cb(const std_msgs::Bool& msg){
-  char wk[64];
   sprintf(wk, "msg.data=%d", msg.data);
   nh.loginfo(wk);
-  if(msg.data)digitalWrite(LED_BUILTIN, HIGH);
-  else digitalWrite(LED_BUILTIN, LOW);
+#if defined (LED_BUILTIN)
+  sprintf(wk, "PB11=%d PB12=%d PC13=%d LED_BUILTIN=%d", PB11, PB12, PC13, LED_BUILTIN);
+  nh.loginfo(wk);
+  if(msg.data) {
+    strcpy(wk, "LED_BUILTIN gose HIGH");
+    digitalWrite(LED_BUILTIN, HIGH);
+  } else {
+    strcpy(wk, "LED_BUILTIN gose LOW");
+    digitalWrite(LED_BUILTIN, LOW);
+  }
+#else
+  strcpy(wk, "LED_BUILTIN is undefined");
+#endif
+  nh.loginfo(wk);
 }
 ros::Subscriber<std_msgs::Bool> sub0("led", &led_cb);
 
@@ -26,7 +37,9 @@ void setup() {
   nh.advertise(chatter);
   nh.subscribe(sub0);
 
+#if defined (LED_BUILTIN)
   pinMode(LED_BUILTIN, OUTPUT);
+#endif
 }
 
 void loop() {

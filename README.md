@@ -162,6 +162,21 @@ data: "hello world! 2132011"
 ---
 ```
 
+### Terminal 4
+```
+# Onboard led gose LOW
+$ rostopic pub -1 /led std_msgs/Bool "data: false"
+# Onboard led gose HOGH
+$ rostopic pub -1 /led std_msgs/Bool "data: true"
+```
+
+There are boards that turn off when it goes LOW and boards that turn on when it goes HIGH.   
+This is hardware implementation dependent.   
+GPIO of onboard LED is set in platform.ini.   
+```
+build_flags = '-D LED_BUILTIN=PC13'
+```
+
 
 # Using other board
 rosserial_arduino_lib uses Serial object for ROS communication.   
