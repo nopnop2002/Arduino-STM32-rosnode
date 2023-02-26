@@ -134,6 +134,15 @@ When the PlatformIO host and ROS host are the same, it will be as follows:
 +----------+         +----------+         +----------+
 ```
 
+If the quality of the UART wire is poor, you will get an error like this.   
+```
+[ERROR] [1677403411.453212]: Mismatched protocol version in packet ('\x12'): lost sync or rosserial_python is from different ros release than the rosserial client
+[INFO] [1677403411.456146]: Protocol version of client is unrecognized, expected Rev 1 (rosserial 0.5+)
+[ERROR] [1677403411.950751]: Mismatched protocol version in packet ('\xff'): lost sync or rosserial_python is from different ros release than the rosserial client
+[INFO] [1677403411.953727]: Protocol version of client is Rev 0 (rosserial 0.4 and earlier), expected Rev 1 (rosserial 0.5+)
+```
+
+
 ### Terminal 1
 ```
 $ roscore
