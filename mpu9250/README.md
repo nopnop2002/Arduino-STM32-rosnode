@@ -220,6 +220,7 @@ Using rviz_imu_plugin you can directly see the result of ImuFilter.
 - Add->rviz_imu_plugin->Imu   
 - Global Options->Fixed Frame->imu   
 - Imu->Topic->/imu/data   
+___Data will drift without calibration.___   
 
 ![rviz_2023-02-26_09-00-11](https://user-images.githubusercontent.com/6020549/221385300-b6805bde-5b48-44fd-baf9-dbdaebacf4fb.png)
 ![rviz_2023-02-26_08-59-24](https://user-images.githubusercontent.com/6020549/221385303-7581ca35-2243-4526-b082-5aac23b0cdfd.png)
