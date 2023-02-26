@@ -172,6 +172,8 @@ magnetic_field_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 ```
 
 ### Conversion to Quatanion
+Appropriate calibration data must be specified.   
+As a basic drift countermeasure, first sample the zero point of the angular velocity in a stationary state, and then input the angular velocity data after subtracting that value to the filter.   
 ```
 $ sudo apt-get install ros-melodic-imu-tools
 
@@ -183,7 +185,7 @@ $ rosrun imu_filter_madgwick imu_filter_node _use_mag:=true _publish_tf:=false _
 ```
 
 ### Show Quatanion
-Data will drift without calibration.   
+___Data will drift without calibration.___   
 ```
 $ rostopic echo /imu/data
 header:
