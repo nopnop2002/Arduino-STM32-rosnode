@@ -173,7 +173,7 @@ $ rostopic pub -1 /led std_msgs/Bool "data: true"
 There are boards that turn off when it goes LOW and boards that turn off when it goes HIGH.   
 This is hardware implementation dependent.   
 GPIO of onboard LED is set in platform.ini.   
-Settings for boards other than BluePill and BlackPill are temporary settings.   
+Settings for boards other than BluePill and BlackPill are provisional.   
 ```
 build_flags = '-D LED_BUILTIN=PC13'
 ```
