@@ -1,5 +1,5 @@
 # mpu9250 rosnode
-A demo that captures data from an i2c 9FoD imu and includes it in ROS.   
+A demo that captures data from an i2c 9DoF imu and includes it in ROS.   
 
 
 
