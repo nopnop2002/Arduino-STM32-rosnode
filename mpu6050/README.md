@@ -203,29 +203,17 @@ $ rosrun rosserial_python serial_node.py _port:=/dev/ttyUSB0 _baud:=115200
 ### Terminal 3
 ```
 $ rostopic echo /chatter
-data: "sensorId: 113"
+data: "x:  0.00 y:  0.00 z:  0.19 w:  0.98"
 ---
-data: "accelX:  0.046387 accelY: -0.017090 accelZ: -0.982422"
----
-data: "gyroX:  0.427246 gyroY: -0.488281 gyroZ:  0.976563"
----
-data: "magX: -3.632813 magY: 51.566406 magZ:  5.820312 horizontal direction: -4.029788"
----
-
-$ rostopic echo /chatter
-data: "x:  0.00 y: -0.01 z:  0.17 w:  0.99"
----
-data: "x:  0.00 y: -0.01 z:  0.17 w:  0.99"
----
-data: "x:  0.00 y: -0.01 z:  0.17 w:  0.99"
+data: "x:  0.00 y:  0.00 z:  0.19 w:  0.98"
 ---
 
 $ rostopic echo pose
 header:
-  seq: 35514
+  seq: 46281
   stamp:
-    secs: 1677467752
-    nsecs: 729716007
+    secs: 1677473986
+    nsecs: 445950029
   frame_id: "mpu6050"
 pose:
   position:
@@ -233,16 +221,16 @@ pose:
     y: 0.0
     z: 0.0
   orientation:
-    x: 0.00244140625
-    y: -0.01025390625
-    z: 0.98486328125
+    x: 0.0009765625
+    y: 0.00244140625
+    z: 0.981506347656
     w: 0.0
 ---
 ```
 
 
 ### View Quatanion using rviz
-Using rviz_imu_plugin you can directly see the result of ImuFilter.   
+With rviz you can see the imu pose.   
 - start rviz   
 - Global Options->Fixed Frame->mpu6050   
 - Add->Pose   
