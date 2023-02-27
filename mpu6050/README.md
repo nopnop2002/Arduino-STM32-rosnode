@@ -1,5 +1,5 @@
 # mpu6050 rosnode
-A demo that captures data from an i2c 6Fod imu and includes it in ROS.   
+A demo that captures data from an i2c 6DoF imu and includes it in ROS.   
 
 
 
