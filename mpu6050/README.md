@@ -28,7 +28,9 @@ Connect ST-LINK adapter and STM32.
 +----------+         +----------+         +----------+
 ```
 
-Connect STM32 and HOST using UART-USB converter.
+Connect STM32 and HOST using UART-USB converter.   
+Start a serial monitor on the host.   
+I used TeraTerm.   
 ```
 Build with pill board
 +----------+         +----------+         +----------+
@@ -55,7 +57,8 @@ $ pio run -t upload
 ```
 
 It will take a few minutes for the calibration to complete.   
-You should see a result like the one below. If -- done -- is displayed, it is completed.    
+The serial monitor should show results similar to the following.   
+If -- done -- is displayed, it is completed.    
 ```
 ....................    XAccel                  YAccel                          ZAccel                  XGyro                   YGyro                   ZGyro
  [-2891,-2889] --> [-10,3]      [-445,-444] --> [-17,1] [697,698] --> [16381,16400]     [148,149] --> [-1,2]    [26,27] --> [-1,2]      [16,17] --> [-2,1]
