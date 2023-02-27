@@ -50,6 +50,7 @@ Build with generic board
 ```
 
 Lay the sensor horizontally and perform the calibration.   
+IMU_Zero is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/IMU_Zero).   
 ```
 $ git clone https://github.com/nopnop2002/Arduino-STM32-rosnode
 $ cd Arduino-STM32-rosnode/mpu6050/IMU_Zero
@@ -101,7 +102,9 @@ $ ls
 README  ros_lib
 ```
 
-Set your offset in your code
+Set your offset in your code.   
+ros code is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/MPU6050_DMP6).   
+
 ```
 $ cd ..
 $ vi src/main.cpp
