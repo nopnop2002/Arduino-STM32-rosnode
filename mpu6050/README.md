@@ -28,7 +28,9 @@ Connect ST-LINK adapter and STM32.
 +----------+         +----------+         +----------+
 ```
 
-Connect STM32 and HOST using UART-USB converter.   
+
+Connect STM32 and HOST using a UART-USB converter to view calibration results.   
+Calibration results are output to the serial port.   
 Start a serial monitor on the host.   
 I used TeraTerm.   
 ```
@@ -68,7 +70,7 @@ If -- done -- is displayed, it is completed.
 -------------- done --------------
 ```
 
-The offset value that the line above -- done -- should reflect.   
+The last line is your offset value.   
 We need 6 values XAccelOffset, YAccelOffset, ZAccelOffset, XGyroOffset, YGyroOffset, ZGyroOffset.
 In this example:
 - XAccelOffset is -2889.   
@@ -102,7 +104,7 @@ $ ls
 README  ros_lib
 ```
 
-Set your offset in your code.   
+Set your offset in your code   
 ros code is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/MPU6050_DMP6).   
 
 ```
