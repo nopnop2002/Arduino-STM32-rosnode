@@ -19,6 +19,7 @@ A demo that captures data from an i2c 6DoF imu and includes it in ROS.
 - MPU9250 9DoF MotionTracking device   
  MPU9250 is a package that integrates the MPU-6050 and a chip (AK8963) with a 3-axis magnetic sensor.   
  MPU9250 also has an internal processing function called DMP (Digital Motion Processor).   
+ DMP iof MPU9250 is compatible with DMP of MPU-6050.   
  You can use this to get Euler angles and quaternions angles.   
 
 # Sensor calibration
