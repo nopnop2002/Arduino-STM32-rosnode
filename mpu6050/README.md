@@ -274,7 +274,7 @@ This is a sample of some boards.
 
 
 # Memory Usage
-This demo can't execute with ATMega328(Uno,Nano,Promini).   
+This demo can't run on ATMega328(Uno,Nano,Promini).   
 Too little RAM.
 ```
 $ pio run -e uno
