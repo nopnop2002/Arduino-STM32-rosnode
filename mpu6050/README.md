@@ -75,7 +75,7 @@ We need 6 values XAccelOffset, YAccelOffset, ZAccelOffset, XGyroOffset, YGyroOff
 In this example:
 - XAccelOffset is -2889.   
 - YAccelOffset is -444.   
-- ZAccelOffset is -698.   
+- ZAccelOffset is 698.   
 - XGyroOffset is 149.   
 - YGyroOffset is 27.   
 - ZGyroOffset is 17.   
