@@ -142,7 +142,7 @@ rqt_plt rqt_plt /distance
 ![ultrasonic_2023-02-26_10-25-38](https://user-images.githubusercontent.com/6020549/221387503-599cce07-74f4-428a-9783-5f289bcfef18.png)
 
 # Memory Usage
-This demo can ececute with ATMega328(Uno,Nano,Promini).   
+This demo can run on ATMega328(Uno,Nano,Promini).   
 ```
 rd: uno; framework: arduino)
 ----------------------------------------------------------------------------------------------------------------------
