@@ -175,8 +175,6 @@ magnetic_field_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 ```
 
 ### Conversion to Quatanion
-Appropriate calibration data must be specified as parameters.   
-As a basic drift countermeasure, first sample the zero point of the angular velocity in a stationary state, and then input the angular velocity data after subtracting that value to the filter.   
 Details of the parameters can be found [here](http://wiki.ros.org/imu_filter_madgwick).
 ```
 $ sudo apt-get install ros-melodic-imu-tools
