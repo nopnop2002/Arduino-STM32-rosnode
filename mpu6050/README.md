@@ -23,6 +23,8 @@ A demo that captures data from an i2c 6DoF imu and includes it in ROS.
  Since this sample uses DMP, it does not use a 3-axis magnetic sensor.   
  You can use this to get Euler angles and quaternions angles.   
 
+ As for DMP, I used [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050) library.
+
 # Sensor calibration
 Connect ST-LINK adapter and STM32.
 ```
