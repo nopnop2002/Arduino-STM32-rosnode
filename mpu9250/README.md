@@ -121,13 +121,13 @@ $ rosrun rosserial_python serial_node.py _port:=/dev/ttyUSB0 _baud:=115200
 ### Terminal 3
 ```
 $ rostopic echo /chatter
-data: "sensorId: 113"
+data: "accelSteps=167 gyroSteps=167 magSteps=167"
 ---
-data: "accelX:  0.046387 accelY: -0.017090 accelZ: -0.982422"
+data: "ax= 0.00 ay= 0.00 az= 1.01"
 ---
-data: "gyroX:  0.427246 gyroY: -0.488281 gyroZ:  0.976563"
+data: "gx=-0.00 gy= 0.00 gz=-0.00"
 ---
-data: "magX: -3.632813 magY: 51.566406 magZ:  5.820312 horizontal direction: -4.029788"
+data: "mx=-300.33 my= 187.10 mz= 153.54"
 ---
 
 $ rostopic echo /imu/data_raw
@@ -186,7 +186,6 @@ $ rosrun imu_filter_madgwick imu_filter_node _use_mag:=true _publish_tf:=false _
 ```
 
 ### Show Quatanion
-___Data will drift without calibration.___   
 ```
 $ rostopic echo /imu/data
 header:
@@ -221,10 +220,8 @@ Using rviz_imu_plugin you can directly see the result of ImuFilter.
 - Global Options->Fixed Frame->imu   
 - Imu->Topic->/imu/data   
 
-___Data will drift without calibration.___   
-
 ![rviz_2023-02-26_09-00-11](https://user-images.githubusercontent.com/6020549/221385300-b6805bde-5b48-44fd-baf9-dbdaebacf4fb.png)
-![rviz_2023-02-26_08-59-24](https://user-images.githubusercontent.com/6020549/221385303-7581ca35-2243-4526-b082-5aac23b0cdfd.png)
+![mpu9250_2023-03-01_18-09-38](https://user-images.githubusercontent.com/6020549/222094528-186cfc32-4d70-415e-a509-3a0a200bd80b.png)
 
 
 # Using other board
