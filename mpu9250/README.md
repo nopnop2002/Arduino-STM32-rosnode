@@ -16,6 +16,7 @@ A demo that captures data from an i2c 9DoF imu and includes it in ROS.
  MPU9250 has an internal processing function called DMP (Digital Motion Processor).   
  But this sample doesn't use DMP, just 9DoF data.   
  Conversion from 9DoF data to quaternion uses imu_filter_madgwick on the host side.   
+ Based on [this](https://github.com/kriswiner/MPU9250/tree/master/AK8963_as_slave) code.   
 
 # Build Firmware
 Connect ST-LINK adapter and STM32.
