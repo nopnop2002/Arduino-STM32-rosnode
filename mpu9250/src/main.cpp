@@ -337,6 +337,7 @@ void loop() {
 		str_msg.data = buffer;
 		chatter.publish( &str_msg );
 
+		// The outputs of the accelerometer are in g
 		strcpy(buffer, "ax=");
 		dtostrf(ax_sum/accelSteps, 5, 2, wk);
 		strcat(buffer, wk);
@@ -368,7 +369,7 @@ void loop() {
 		str_msg.data = buffer;
 		chatter.publish( &str_msg );
 
-		// The outputs of the  accelerometer are in g
+		// The outputs of the compass are in micro tesla
 		strcpy(buffer, "mx=");
 		dtostrf(mx_sum/magSteps, 7, 2, wk);
 		strcat(buffer, wk);
