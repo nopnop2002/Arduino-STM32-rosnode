@@ -175,7 +175,7 @@ magnetic_field_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 ```
 
 ### Conversion to Quatanion
-Details of the parameters can be found [here](http://wiki.ros.org/imu_filter_madgwick).
+Learn more about filters [here](http://wiki.ros.org/imu_filter_madgwick).
 ```
 $ sudo apt-get install ros-melodic-imu-tools
 
