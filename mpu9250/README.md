@@ -13,7 +13,9 @@ A demo that captures data from an i2c 9DoF imu and includes it in ROS.
 - UART-USB converter module   
 
 - MPU9250 9DoF MotionTracking device   
-
+ MPU9250 has an internal processing function called DMP (Digital Motion Processor).   
+ But this sample doesn't use DMP, just 9DoF data.   
+ Conversion from 9DoF data to quaternion uses imu_filter_madgwick on the host side.   
 
 # Build Firmware
 Connect ST-LINK adapter and STM32.
