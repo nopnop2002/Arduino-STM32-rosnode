@@ -51,39 +51,25 @@ unsigned long nextMillis;
 char buffer[64];
 char wk[10];
 
-void setup() {
-	nh.getHardware()->setBaud(115200);
-	nh.initNode(); //Default=57600bps
-	nh.advertise(chatter);
-	nh.advertise(pubimu);
-	nh.advertise(pubmag);
+void setupMPU() {
+	Wire.begin(); // set master mode, default on SDA/SCL for Ladybug
+	Wire.setClock(400000); // I2C frequency at 400 kHz
 
-	for (int i=0;i<100;i++) {
-		sprintf(buffer, "Start until %d millSec", 100-i);
-  		str_msg.data = buffer;
-		chatter.publish( &str_msg );
-  		nh.spinOnce();
-		delay(100);
-	}
+	//MPU9250.I2Cscan(); // should detect MPU9250 at 0x68
 
-    Wire.begin(); // set master mode, default on SDA/SCL for Ladybug
-    Wire.setClock(400000); // I2C frequency at 400 kHz
+	/* Configure the MPU9250 */
+	// Read the WHO_AM_I register, this is a good test of communication
+	strcpy(buffer, "MPU9250 9-axis motion sensor...");
+	//Serial.println(buffer);
+	str_msg.data = buffer;
+	chatter.publish( &str_msg );
+	//nh.spinOnce();
 
-    //MPU9250.I2Cscan(); // should detect MPU9250 at 0x68
-
-    /* Configure the MPU9250 */
-    // Read the WHO_AM_I register, this is a good test of communication
-    strcpy(buffer, "MPU9250 9-axis motion sensor...");
-    //Serial.println(buffer);
-    str_msg.data = buffer;
-    chatter.publish( &str_msg );
-    //nh.spinOnce();
-
-    uint8_t c = MPU9250.getMPU9250ID();
-    sprintf(buffer, "MPU9250 I AM 0x%x I should be 0x71", c);
-    //Serial.println(buffer);
-    str_msg.data = buffer;
-    chatter.publish( &str_msg );
+	uint8_t c = MPU9250.getMPU9250ID();
+	sprintf(buffer, "MPU9250 I AM 0x%x I should be 0x71", c);
+	//Serial.println(buffer);
+	str_msg.data = buffer;
+	chatter.publish( &str_msg );
 
 	if (c == 0x71 ) // WHO_AM_I should always be 0x71 for MPU9250, 0x73 for MPU9255 
 	{  
@@ -173,107 +159,144 @@ void setup() {
 		str_msg.data = buffer;
 		chatter.publish( &str_msg );
   
-		// Read the WHO_AM_I register of the magnetometer, this is a good test of communication
-		byte d = MPU9250.getAK8963CID();	// Read WHO_AM_I register for AK8963
-		sprintf(buffer, "AK8963 I AM 0x%x I should be 0x48", d);
-		//Serial.println(buffer);
-		str_msg.data = buffer;
-		chatter.publish( &str_msg );
-
-		if (d == 0x48) {
-			strcpy(buffer, "AK8963 is online...");
-			//Serial.println(buffer);
-			str_msg.data = buffer;
-			chatter.publish( &str_msg );
-
-			// Get magnetometer calibration from AK8963 ROM
-			MPU9250.initAK8963Slave(Mscale, Mmode, magCalibration);
-			strcpy(buffer, "AK8963 initialized for active data mode...."); // Initialize device for active mode read of magnetometer
-			//Serial.println(buffer);
-			str_msg.data = buffer;
-			chatter.publish( &str_msg );
-
-			// Comment out if using pre-measured, pre-stored offset biases
-			//MPU9250.magcalMPU9250(magBias, magScale);
-
-			strcpy(buffer, "AK8963 mag biases (mG): ");
-			dtostrf(magBias[0], 6, 2, wk);
-			strcat(buffer, wk);
-			strcat(buffer, " ");
-			dtostrf(magBias[1], 6, 2, wk);
-			strcat(buffer, wk);
-			strcat(buffer, " ");
-			dtostrf(magBias[2], 6, 2, wk);
-			strcat(buffer, wk);
-			//Serial.println(buffer);
-			str_msg.data = buffer;
-			chatter.publish( &str_msg );
-
-			strcpy(buffer, "AK8963 mag scale (mG):  ");
-			dtostrf(magScale[0], 6, 2, wk);
-			strcat(buffer, wk);
-			strcat(buffer, " ");
-			dtostrf(magScale[1], 6, 2, wk);
-			strcat(buffer, wk);
-			strcat(buffer, " ");
-			dtostrf(magScale[2], 6, 2, wk);
-			strcat(buffer, wk);
-			//Serial.println(buffer);
-			str_msg.data = buffer;
-			chatter.publish( &str_msg );
-			delay(2000); // add delay to see results before serial spew of data
-
-			strcpy(buffer, "AK8963 Calibration values: ");
-			//Serial.println(buffer);
-			str_msg.data = buffer;
-			chatter.publish( &str_msg );
-
-			strcpy(buffer, "X-Axis sensitivity adjustment value: ");
-			dtostrf(magCalibration[0], 5, 2, wk);
-			strcat(buffer, wk);
-			//Serial.println(buffer);
-			str_msg.data = buffer;
-			chatter.publish( &str_msg );
-
-			str_msg.data = buffer;
-			strcpy(buffer, "Y-Axis sensitivity adjustment value: ");
-			dtostrf(magCalibration[1], 5, 2, wk);
-			strcat(buffer, wk);
-			//Serial.println(buffer);
-			str_msg.data = buffer;
-			chatter.publish( &str_msg );
-
-			str_msg.data = buffer;
-			strcpy(buffer, "Z-Axis sensitivity adjustment value: ");
-			dtostrf(magCalibration[2], 5, 2, wk);
-			strcat(buffer, wk);
-			//Serial.println(buffer);
-			str_msg.data = buffer;
-			chatter.publish( &str_msg );
-		} else {
-			sprintf(buffer, "Could not connect to AK8963: 0x%x", d);
-			//Serial.println(buffer);
-			str_msg.data = buffer;
-			chatter.publish( &str_msg );
-    		nh.spinOnce();
-			while(1) ; // Loop forever if communication doesn't happen
-		}
 
   
 	} else {
 		sprintf(buffer, "Could not connect to MPU9250: 0x%x", c);
 		//Serial.println(buffer);
 		str_msg.data = buffer;
-		chatter.publish( &str_msg );
-    	nh.spinOnce();
-		while(1) ; // Loop forever if communication doesn't happen
+		while(1) {
+			chatter.publish( &str_msg );
+			nh.spinOnce();
+			delay(1000);
+		}
 	}
 
-	strcpy(buffer, "MPU9250 start");
+	strcpy(buffer, "MPU9250 Initialization done.");
+	str_msg.data = buffer;
+	chatter.publish( &str_msg );
+	nh.spinOnce();
+}
+
+
+void setupMAG() {
+	// Read the WHO_AM_I register of the magnetometer, this is a good test of communication
+	byte d = MPU9250.getAK8963CID();
+	sprintf(buffer, "AK8963 I AM 0x%x I should be 0x48", d);
 	//Serial.println(buffer);
 	str_msg.data = buffer;
 	chatter.publish( &str_msg );
-    nh.spinOnce();
+
+	if (d == 0x48) {
+		strcpy(buffer, "AK8963 is online...");
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+
+		// Get magnetometer calibration from AK8963 ROM
+		MPU9250.initAK8963Slave(Mscale, Mmode, magCalibration);
+		strcpy(buffer, "AK8963 initialized for active data mode....");
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+
+		// Comment out if using pre-measured, pre-stored offset biases
+		//MPU9250.magcalMPU9250(magBias, magScale);
+
+		strcpy(buffer, "AK8963 mag biases (mG): ");
+		dtostrf(magBias[0], 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " ");
+		dtostrf(magBias[1], 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " ");
+		dtostrf(magBias[2], 6, 2, wk);
+		strcat(buffer, wk);
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+
+		strcpy(buffer, "AK8963 mag scale (mG):	");
+		dtostrf(magScale[0], 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " ");
+		dtostrf(magScale[1], 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " ");
+		dtostrf(magScale[2], 6, 2, wk);
+		strcat(buffer, wk);
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+		delay(2000); // add delay to see results before serial spew of data
+
+		strcpy(buffer, "AK8963 Calibration values: ");
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+
+		strcpy(buffer, "X-Axis sensitivity adjustment value: ");
+		dtostrf(magCalibration[0], 5, 2, wk);
+		strcat(buffer, wk);
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+
+		str_msg.data = buffer;
+		strcpy(buffer, "Y-Axis sensitivity adjustment value: ");
+		dtostrf(magCalibration[1], 5, 2, wk);
+		strcat(buffer, wk);
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+
+		str_msg.data = buffer;
+		strcpy(buffer, "Z-Axis sensitivity adjustment value: ");
+		dtostrf(magCalibration[2], 5, 2, wk);
+		strcat(buffer, wk);
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+	} else {
+		sprintf(buffer, "Could not connect to AK8963: 0x%x", d);
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		while(1) {
+			chatter.publish( &str_msg );
+			nh.spinOnce();
+			delay(1000);
+		};
+	}
+
+	strcpy(buffer, "AK8963 Initialization done.");
+	str_msg.data = buffer;
+	chatter.publish( &str_msg );
+	nh.spinOnce();
+}
+
+void setup() {
+	nh.getHardware()->setBaud(115200);
+	nh.initNode(); //Default=57600bps
+	nh.advertise(chatter);
+	nh.advertise(pubimu);
+	nh.advertise(pubmag);
+
+	for (int i=0;i<100;i++) {
+		sprintf(buffer, "Start until %d millSec", 100-i);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+		nh.spinOnce();
+		delay(100);
+	}
+
+	setupMPU();
+	setupMAG();
+
+	strcpy(buffer, "Initialization all done.");
+	//Serial.println(buffer);
+	str_msg.data = buffer;
+	chatter.publish( &str_msg );
+	nh.spinOnce();
 	nextMillis = millis() + 500;
 }
 
@@ -388,9 +411,9 @@ void loop() {
 		imu.angular_velocity.x = gx_radian;
 		imu.angular_velocity.y = gy_radian;
 		imu.angular_velocity.z = gz_radian;
-		imu.linear_acceleration.x = ax_sum/accelSteps;     
-		imu.linear_acceleration.y = ay_sum/accelSteps;  
-		imu.linear_acceleration.z = az_sum/accelSteps; 
+		imu.linear_acceleration.x = ax_sum/accelSteps;
+		imu.linear_acceleration.y = ay_sum/accelSteps;
+		imu.linear_acceleration.z = az_sum/accelSteps;
 		pubimu.publish(&imu);
 
 		/// The output of AK8963 is mucro Tesla
