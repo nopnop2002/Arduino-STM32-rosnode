@@ -78,15 +78,12 @@ If -- done -- is displayed, it is completed.
 The last line is your offset value.   
 We need 6 values XAccelOffset, YAccelOffset, ZAccelOffset, XGyroOffset, YGyroOffset, ZGyroOffset.
 In this example:
-```
-  mpu.setXAccelOffset(-3232);
-  mpu.setYAccelOffset(-464);
-  mpu.setZAccelOffset(688);
-  mpu.setXGyroOffset(151);
-  mpu.setYGyroOffset(23);
-  mpu.setZGyroOffset(18);
-```
-
+- XAccelOffset = -2889   
+- YAccelOffset = -444   
+- ZAccelOffset = 698   
+- XGyroOffset = 149   
+- YGyroOffset = 27   
+- ZGyroOffset = 17   
 
 
 # Build Firmware
@@ -111,6 +108,21 @@ $ ls
 README  ros_lib
 ```
 
+Set your offset in your code   
+ros code is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/MPU6050_DMP6).   
+
+```
+$ cd ..
+$ vi src/main.cpp
+# Change the offset values below:
+  // supply your own gyro offsets here, scaled for min sensitivity
+  mpu.setXAccelOffset(-2889);
+  mpu.setYAccelOffset(-444);
+  mpu.setZAccelOffset(698);
+  mpu.setXGyroOffset(149);
+  mpu.setYGyroOffset(27);
+  mpu.setZGyroOffset(17);
+```
 
 Build Firmware for pill board
 ```
