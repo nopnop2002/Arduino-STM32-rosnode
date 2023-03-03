@@ -82,12 +82,14 @@ If -- done -- is displayed, it is completed.
 The last line is your offset value.   
 We need 6 values XAccelOffset, YAccelOffset, ZAccelOffset, XGyroOffset, YGyroOffset, ZGyroOffset.
 In this example:
-- XAccelOffset is -2889.   
-- YAccelOffset is -444.   
-- ZAccelOffset is 698.   
-- XGyroOffset is 149.   
-- YGyroOffset is 27.   
-- ZGyroOffset is 17.   
+```
+  mpu.setXAccelOffset(-2889);
+  mpu.setYAccelOffset(-444);
+  mpu.setZAccelOffset(698);
+  mpu.setXGyroOffset(149);
+  mpu.setYGyroOffset(27);
+  mpu.setZGyroOffset(17);
+```
 
 
 
