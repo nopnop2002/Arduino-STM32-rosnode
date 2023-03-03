@@ -51,35 +51,34 @@ char buffer[64];
 char wk[10];
 
 void write_mpu(byte add, byte data) {
-  Wire.beginTransmission(mpu_address);
-  Wire.write(add);
-  Wire.write(data);
-  Wire.endTransmission();
-
+	Wire.beginTransmission(mpu_address);
+	Wire.write(add);
+	Wire.write(data);
+	Wire.endTransmission();
 }
 
 byte read_mpu(byte add) {
-  byte k;
-  Wire.beginTransmission(mpu_address);
-  Wire.write(add);
-  Wire.endTransmission();
-  Wire.requestFrom(mpu_address, 1);
-  while (Wire.available()) {
-	k = Wire.read();
-  }
-  return k;
+	byte k;
+	Wire.beginTransmission(mpu_address);
+	Wire.write(add);
+	Wire.endTransmission();
+	Wire.requestFrom(mpu_address, 1);
+	while (Wire.available()) {
+		k = Wire.read();
+	}
+	return k;
 }
 
 byte read_mag(byte add) {
-  byte k;
-  Wire.beginTransmission(mag_address);
-  Wire.write(add);
-  Wire.endTransmission();
-  Wire.requestFrom(mag_address, 1);
-  while (Wire.available()) {
-	k = Wire.read();
-  }
-  return k;
+	byte k;
+	Wire.beginTransmission(mag_address);
+	Wire.write(add);
+	Wire.endTransmission();
+	Wire.requestFrom(mag_address, 1);
+	while (Wire.available()) {
+		k = Wire.read();
+	}
+	return k;
 }
 
 bool getMagInt(int16_t *intData) {
@@ -251,63 +250,64 @@ bool getMagData(int16_t *intMagData, float *microTesla, float *millGauss) {
 }
 
 void setupMPU() {
-  Wire.begin();
-  Wire.setClock(400000); // 400kHz I2C clock. Comment this line if having compilation difficulties
-  mpu.initialize();
-  devStatus = mpu.dmpInitialize();
+	Wire.begin();
+	Wire.setClock(400000); // 400kHz I2C clock. Comment this line if having compilation difficulties
+	mpu.initialize();
+	devStatus = mpu.dmpInitialize();
 
-  // supply your own gyro offsets here, scaled for min sensitivity
-  mpu.setXAccelOffset(-3232);
-  mpu.setYAccelOffset(-464);
-  mpu.setZAccelOffset(688);
-  mpu.setXGyroOffset(151);
-  mpu.setYGyroOffset(23);
-  mpu.setZGyroOffset(18);
+	// supply your own gyro offsets here, scaled for min sensitivity
+	mpu.setXAccelOffset(-3232);
+	mpu.setYAccelOffset(-464);
+	mpu.setZAccelOffset(688);
+	mpu.setXGyroOffset(151);
+	mpu.setYGyroOffset(23);
+	mpu.setZGyroOffset(18);
 
-  // make sure it worked (returns 0 if so)
-  if (devStatus == 0) {
-	// Calibration Time: generate offsets and calibrate our MPU6050
-	mpu.CalibrateAccel(6);
-	mpu.CalibrateGyro(6);
-	mpu.setDMPEnabled(true);
-	packetSize = mpu.dmpGetFIFOPacketSize();
-  } else {
-	//Serial.print("DMP Initialization failed.");
-	strcpy(buffer, "DMP Initialization failed.");
-	while(1) {
-		//Serial.println(buffer);
-		str_msg.data = buffer;
-		chatter.publish( &str_msg );
-		nh.spinOnce();
-		delay(1000);
+	// make sure it worked (returns 0 if so)
+	if (devStatus == 0) {
+		// Calibration Time: generate offsets and calibrate our MPU6050
+		mpu.CalibrateAccel(6);
+		mpu.CalibrateGyro(6);
+		mpu.setDMPEnabled(true);
+		packetSize = mpu.dmpGetFIFOPacketSize();
+	} else {
+		//Serial.print("DMP Initialization failed.");
+		strcpy(buffer, "DMP Initialization failed.");
+		while(1) {
+			//Serial.println(buffer);
+			str_msg.data = buffer;
+			chatter.publish( &str_msg );
+			nh.spinOnce();
+			delay(1000);
+		}
 	}
-  }
-  // Get LSB Sensitivity
-  //Serial.print("getFullScaleAccelRange()=");
-  uint8_t _AccelRange = mpu.getFullScaleAccelRange();
-  //Serial.println(_AccelRange);
-  if (_AccelRange == 0) {
-    accel_sensitivity = 16384.0;
-  } else if (_AccelRange == 1) {
-    accel_sensitivity = 8192.0;
-  } else if (_AccelRange == 2) {
-    accel_sensitivity = 4096.0;
-  } else if (_AccelRange == 3) {
-    accel_sensitivity = 2048.0;
-  }
 
-  //Serial.print("getFullScaleGyroRange()=");
-  uint8_t _GyroRange = mpu.getFullScaleGyroRange();
-  //Serial.println(_GyroRange);
-  if (_GyroRange == 0) {
-    gyro_sensitivity = 131.0;
-  } else if (_GyroRange == 1) {
-    gyro_sensitivity = 65.5;
-  } else if (_GyroRange == 2) {
-    gyro_sensitivity = 32.8;
-  } else if (_GyroRange == 3) {
-    gyro_sensitivity = 16.4;
-  }
+	// Get LSB Sensitivity
+	//Serial.print("getFullScaleAccelRange()=");
+	uint8_t _AccelRange = mpu.getFullScaleAccelRange();
+	//Serial.println(_AccelRange);
+	if (_AccelRange == 0) {
+		accel_sensitivity = 16384.0;
+	} else if (_AccelRange == 1) {
+		accel_sensitivity = 8192.0;
+	} else if (_AccelRange == 2) {
+		accel_sensitivity = 4096.0;
+	} else if (_AccelRange == 3) {
+		accel_sensitivity = 2048.0;
+	}
+
+	//Serial.print("getFullScaleGyroRange()=");
+	uint8_t _GyroRange = mpu.getFullScaleGyroRange();
+	//Serial.println(_GyroRange);
+	if (_GyroRange == 0) {
+		gyro_sensitivity = 131.0;
+	} else if (_GyroRange == 1) {
+		gyro_sensitivity = 65.5;
+	} else if (_GyroRange == 2) {
+		gyro_sensitivity = 32.8;
+	} else if (_GyroRange == 3) {
+		gyro_sensitivity = 16.4;
+	}
 }
 
 void setupMAG() {
@@ -367,106 +367,105 @@ void setupMAG() {
 }
 
 void getRawData() {
-  int16_t ax,ay,az;
-  int16_t gx,gy,gz;
-  // read raw accel/gyro measurements from device
-  // The accelerometer output is a 16-bit signed integer relative value.
-  // The gyroscope output is a relative value in degrees per second (dps).
-  mpu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
+	int16_t ax,ay,az;
+	int16_t gx,gy,gz;
+	// read raw accel/gyro measurements from device
+	// The accelerometer output is a 16-bit signed integer relative value.
+	// The gyroscope output is a relative value in degrees per second (dps).
+	mpu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
 
-  accel_raw[0] = ax;
-  accel_raw[1] = ay;
-  accel_raw[2] = az;
-  gyro_raw[0] = gx;
-  gyro_raw[1] = gy;
-  gyro_raw[2] = gz;
+	accel_raw[0] = ax;
+	accel_raw[1] = ay;
+	accel_raw[2] = az;
+	gyro_raw[0] = gx;
+	gyro_raw[1] = gy;
+	gyro_raw[2] = gz;
 
-  // Convert relative to absolute
-  accel_real[0] = (float)ax / accel_sensitivity;
-  accel_real[1] = (float)ay / accel_sensitivity;
-  accel_real[2] = (float)az / accel_sensitivity;
-  // Convert relative degree per second to absolute radian per second
-  //gyro_real[0] = gx * 0.0174533;
-  //gyro_real[1] = gy * 0.0174533;
-  //gyro_real[2] = gz * 0.0174533;
-  gyro_real[0] = ((float)gx / gyro_sensitivity) * 0.0174533;
-  gyro_real[1] = ((float)gy / gyro_sensitivity) * 0.0174533;
-  gyro_real[2] = ((float)gz / gyro_sensitivity) * 0.0174533;
+	// Convert relative to absolute
+	accel_real[0] = (float)ax / accel_sensitivity;
+	accel_real[1] = (float)ay / accel_sensitivity;
+	accel_real[2] = (float)az / accel_sensitivity;
+	// Convert relative degree per second to absolute radian per second
+	//gyro_real[0] = gx * 0.0174533;
+	//gyro_real[1] = gy * 0.0174533;
+	//gyro_real[2] = gz * 0.0174533;
+	gyro_real[0] = ((float)gx / gyro_sensitivity) * 0.0174533;
+	gyro_real[1] = ((float)gy / gyro_sensitivity) * 0.0174533;
+	gyro_real[2] = ((float)gz / gyro_sensitivity) * 0.0174533;
 #if 0
-  Serial.print("ax: ");
-  Serial.print(accel_real[0]);
-  Serial.print(" ay: ");
-  Serial.print(accel_real[1]);
-  Serial.print(" az: ");
-  Serial.print(accel_real[2]);
-  Serial.print(" gx: ");
-  Serial.print(gyro_real[0]);
-  Serial.print(" gy: ");
-  Serial.print(gyro_real[1]);
-  Serial.print(" gz: ");
-  Serial.print(gyro_real[2]);
-  Serial.println();
+	Serial.print("ax: ");
+	Serial.print(accel_real[0]);
+	Serial.print(" ay: ");
+	Serial.print(accel_real[1]);
+	Serial.print(" az: ");
+	Serial.print(accel_real[2]);
+	Serial.print(" gx: ");
+	Serial.print(gyro_real[0]);
+	Serial.print(" gy: ");
+	Serial.print(gyro_real[1]);
+	Serial.print(" gz: ");
+	Serial.print(gyro_real[2]);
+	Serial.println();
 #endif
 }
 
 
 void getYawPitchRoll() {
-  if (mpu.dmpGetCurrentFIFOPacket(fifoBuffer)) { // Get the Latest packet
-	mpu.dmpGetQuaternion(&q, fifoBuffer);
-	mpu.dmpGetGravity(&gravity, &q);
-	mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
-	//Serial.print(ypr[2] * 180 / M_PI);
-	//Serial.print(",");
-	//Serial.print(ypr[1] * 180 / M_PI);
-	//Serial.print(",");
-	//Serial.println(ypr[0] * 180 / M_PI);
-	float roll = ypr[2] * 180 / M_PI;
-	float pitch = ypr[1] * 180 / M_PI;
-	float yaw = ypr[0] * 180 / M_PI;
-	strcpy(buffer, "roll:");
-	dtostrf(roll, 6, 2, wk);
-	strcat(buffer, wk);
-	strcat(buffer, " pitch:");
-	dtostrf(pitch, 6, 2, wk);
-	strcat(buffer, wk);
-	strcat(buffer, " yaw:");
-	dtostrf(yaw, 6, 2, wk);
-	strcat(buffer, wk);
-	//Serial.println(buffer);
-	str_msg.data = buffer;
-	chatter.publish( &str_msg );
-	//nh.spinOnce();
-  }
+	if (mpu.dmpGetCurrentFIFOPacket(fifoBuffer)) { // Get the Latest packet
+		mpu.dmpGetQuaternion(&q, fifoBuffer);
+		mpu.dmpGetGravity(&gravity, &q);
+		mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
+		//Serial.print(ypr[2] * 180 / M_PI);
+		//Serial.print(",");
+		//Serial.print(ypr[1] * 180 / M_PI);
+		//Serial.print(",");
+		//Serial.println(ypr[0] * 180 / M_PI);
+		float roll = ypr[2] * 180 / M_PI;
+		float pitch = ypr[1] * 180 / M_PI;
+		float yaw = ypr[0] * 180 / M_PI;
+		strcpy(buffer, "roll:");
+		dtostrf(roll, 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " pitch:");
+		dtostrf(pitch, 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " yaw:");
+		dtostrf(yaw, 6, 2, wk);
+		strcat(buffer, wk);
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+		//nh.spinOnce();
+	}
 }
 
 void getQuaternion() {
-  if (mpu.dmpGetCurrentFIFOPacket(fifoBuffer)) { // Get the Latest packet
-	mpu.dmpGetQuaternion(&q, fifoBuffer);
-	//Serial.print(q.x);
-	//Serial.print(",");
-	//Serial.print(q.y);
-	//Serial.print(",");
-	//Serial.print(q.z);
-	//Serial.print(",");
-	//Serial.println(q.w);
-	strcpy(buffer, "x:");
-	dtostrf(q.x, 6, 2, wk);
-	strcat(buffer, wk);
-	strcat(buffer, " y:");
-	dtostrf(q.y, 6, 2, wk);
-	strcat(buffer, wk);
-	strcat(buffer, " z:");
-	dtostrf(q.z, 6, 2, wk);
-	strcat(buffer, wk);
-	strcat(buffer, " w:");
-	dtostrf(q.w, 6, 2, wk);
-	strcat(buffer, wk);
-	//Serial.println(buffer);
-	str_msg.data = buffer;
-	chatter.publish( &str_msg );
-	//nh.spinOnce();
-
-  }
+	if (mpu.dmpGetCurrentFIFOPacket(fifoBuffer)) { // Get the Latest packet
+		mpu.dmpGetQuaternion(&q, fifoBuffer);
+		//Serial.print(q.x);
+		//Serial.print(",");
+		//Serial.print(q.y);
+		//Serial.print(",");
+		//Serial.print(q.z);
+		//Serial.print(",");
+		//Serial.println(q.w);
+		strcpy(buffer, "x:");
+		dtostrf(q.x, 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " y:");
+		dtostrf(q.y, 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " z:");
+		dtostrf(q.z, 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " w:");
+		dtostrf(q.w, 6, 2, wk);
+		strcat(buffer, wk);
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+		//nh.spinOnce();
+	}
 }
 
 void setup() {
@@ -490,141 +489,140 @@ void setup() {
 }
 
 void loop() {
-  static float ax_sum = 0.0;
-  static float ay_sum = 0.0;
-  static float az_sum = 0.0;
-  static float gx_sum = 0.0;
-  static float gy_sum = 0.0;
-  static float gz_sum = 0.0;
-  static int dataSteps = 0;
+	static float ax_sum = 0.0;
+	static float ay_sum = 0.0;
+	static float az_sum = 0.0;
+	static float gx_sum = 0.0;
+	static float gy_sum = 0.0;
+	static float gz_sum = 0.0;
+	static int dataSteps = 0;
 
-  getRawData();
-  ax_sum += accel_real[0];
-  ay_sum += accel_real[1];
-  az_sum += accel_real[2];
-  gx_sum += gyro_real[0];
-  gy_sum += gyro_real[1];
-  gz_sum += gyro_real[2];
-  dataSteps++;
+	getRawData();
+	ax_sum += accel_real[0];
+	ay_sum += accel_real[1];
+	az_sum += accel_real[2];
+ 	gx_sum += gyro_real[0];
+	gy_sum += gyro_real[1];
+	gz_sum += gyro_real[2];
+	dataSteps++;
   
-  if (millis() > nextMillis) {
-	strcpy(buffer, "accel_sensitivity=");
-	dtostrf(accel_sensitivity, 8, 2, wk);
-	strcat(buffer, wk);
-	strcat(buffer, " gyro_sensitivity=");
-	dtostrf(gyro_sensitivity, 8, 2, wk);
-	strcat(buffer, wk);
-	//Serial.println(buffer);
-	str_msg.data = buffer;
-	chatter.publish( &str_msg );
-	//nh.spinOnce();
+	if (millis() > nextMillis) {
+		strcpy(buffer, "accel_sensitivity=");
+		dtostrf(accel_sensitivity, 8, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " gyro_sensitivity=");
+		dtostrf(gyro_sensitivity, 8, 2, wk);
+		strcat(buffer, wk);
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+		//nh.spinOnce();
 
+		sprintf(buffer, "dataSteps=%d", dataSteps);
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+		//nh.spinOnce();
 
-	sprintf(buffer, "dataSteps=%d", dataSteps);
-	//Serial.println(buffer);
-	str_msg.data = buffer;
-	chatter.publish( &str_msg );
-	//nh.spinOnce();
+		float ax_avr = ax_sum/dataSteps;
+		float ay_avr = ay_sum/dataSteps;
+		float az_avr = az_sum/dataSteps;
+		float gx_avr = gx_sum/dataSteps;
+		float gy_avr = gy_sum/dataSteps;
+		float gz_avr = gz_sum/dataSteps;
 
-	float ax_avr = ax_sum/dataSteps;
-	float ay_avr = ay_sum/dataSteps;
-	float az_avr = az_sum/dataSteps;
-	float gx_avr = gx_sum/dataSteps;
-	float gy_avr = gy_sum/dataSteps;
-	float gz_avr = gz_sum/dataSteps;
+		strcpy(buffer, "ax_avr: ");
+		dtostrf(ax_avr, 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " ay_avr: ");
+		dtostrf(ay_avr, 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " az_avr: ");
+		dtostrf(az_avr, 6, 2, wk);
+		strcat(buffer, wk);
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+		//nh.spinOnce();
 
-	strcpy(buffer, "ax_avr: ");
-	dtostrf(ax_avr, 6, 2, wk);
-	strcat(buffer, wk);
-	strcat(buffer, " ay_avr: ");
-	dtostrf(ay_avr, 6, 2, wk);
-	strcat(buffer, wk);
-	strcat(buffer, " az_avr: ");
-	dtostrf(az_avr, 6, 2, wk);
-	strcat(buffer, wk);
-	//Serial.println(buffer);
-	str_msg.data = buffer;
-	chatter.publish( &str_msg );
-	//nh.spinOnce();
+		strcpy(buffer, "gx_avr: ");
+		dtostrf(gx_avr, 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " gy_avr: ");
+		dtostrf(gy_avr, 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " gz_avr: ");
+		dtostrf(gz_avr, 6, 2, wk);
+		strcat(buffer, wk);
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+		//nh.spinOnce();
 
-	strcpy(buffer, "gx_avr: ");
-	dtostrf(gx_avr, 6, 2, wk);
-	strcat(buffer, wk);
-	strcat(buffer, " gy_avr: ");
-	dtostrf(gy_avr, 6, 2, wk);
-	strcat(buffer, wk);
-	strcat(buffer, " gz_avr: ");
-	dtostrf(gz_avr, 6, 2, wk);
-	strcat(buffer, wk);
-	//Serial.println(buffer);
-	str_msg.data = buffer;
-	chatter.publish( &str_msg );
-	//nh.spinOnce();
+		imu.header.frame_id = "imu";
+		imu.header.stamp = nh.now();
+		imu.angular_velocity.x = gx_avr;
+		imu.angular_velocity.y = gy_avr;
+		imu.angular_velocity.z = gz_avr;
+		imu.linear_acceleration.x = ax_avr;
+		imu.linear_acceleration.y = ay_avr;
+		imu.linear_acceleration.z = az_avr;
+		pubimu.publish(&imu);
 
-	imu.header.frame_id = "imu";
-	imu.header.stamp = nh.now();
-	imu.angular_velocity.x = gx_avr;
-	imu.angular_velocity.y = gy_avr;
-	imu.angular_velocity.z = gz_avr;
-	imu.linear_acceleration.x = ax_avr;
-	imu.linear_acceleration.y = ay_avr;
-	imu.linear_acceleration.z = az_avr;
-	pubimu.publish(&imu);
+		ax_sum = 0.0;
+		ay_sum = 0.0;
+		az_sum = 0.0;
+		gx_sum = 0.0;
+		gy_sum = 0.0;
+		gz_sum = 0.0;
+		dataSteps = 0;
 
-	ax_sum = 0.0;
-	ay_sum = 0.0;
-	az_sum = 0.0;
-	gx_sum = 0.0;
-	gy_sum = 0.0;
-	gz_sum = 0.0;
-	dataSteps = 0;
+		getYawPitchRoll();
+		//getQuaternion();
 
-	getYawPitchRoll();
-	//getQuaternion();
-
-	int16_t intMagData[3];
-	float microTeslaData[3];
-	float millGaussData[3];
-	if (getMagData(intMagData, microTeslaData, millGaussData)) {
-		mag.header.frame_id = "imu";
-		mag.header.stamp = nh.now();
-		mag.magnetic_field.x = microTeslaData[0];
-		mag.magnetic_field.y = microTeslaData[1];
-		mag.magnetic_field.z = microTeslaData[2];
-		pubmag.publish(&mag);
+		int16_t intMagData[3];
+		float microTeslaData[3];
+		float millGaussData[3];
+		if (getMagData(intMagData, microTeslaData, millGaussData)) {
+			mag.header.frame_id = "imu";
+			mag.header.stamp = nh.now();
+			mag.magnetic_field.x = microTeslaData[0];
+			mag.magnetic_field.y = microTeslaData[1];
+			mag.magnetic_field.z = microTeslaData[2];
+			pubmag.publish(&mag);
 
 #if 0
-		strcpy(buffer, "microTesla:");
-		dtostrf(microTeslaData[0], 6, 2, wk);
-		strcat(buffer, wk);
-		strcat(buffer, " ");
-		dtostrf(microTeslaData[1], 6, 2, wk);
-		strcat(buffer, wk);
-		strcat(buffer, " ");
-		dtostrf(microTeslaData[2], 6, 2, wk);
-		strcat(buffer, wk);
-		//Serial.println(buffer);
-		//str_msg.data = buffer;
-		//chatter.publish( &str_msg );
-		//nh.spinOnce();
+			strcpy(buffer, "microTesla:");
+			dtostrf(microTeslaData[0], 6, 2, wk);
+			strcat(buffer, wk);
+			strcat(buffer, " ");
+			dtostrf(microTeslaData[1], 6, 2, wk);
+			strcat(buffer, wk);
+			strcat(buffer, " ");
+			dtostrf(microTeslaData[2], 6, 2, wk);
+			strcat(buffer, wk);
+			//Serial.println(buffer);
+			//str_msg.data = buffer;
+			//chatter.publish( &str_msg );
+			//nh.spinOnce();
 
-		strcpy(buffer, "millGauss:");
-		dtostrf(millGaussData[0], 6, 2, wk);
-		strcat(buffer, wk);
-		strcat(buffer, " ");
-		dtostrf(millGaussData[1], 6, 2, wk);
-		strcat(buffer, wk);
-		strcat(buffer, " ");
-		dtostrf(millGaussData[2], 6, 2, wk);
-		strcat(buffer, wk);
-		//Serial.println(buffer);
-		//str_msg.data = buffer;
-		//chatter.publish( &str_msg );
-		//nh.spinOnce();
+			strcpy(buffer, "millGauss:");
+			dtostrf(millGaussData[0], 6, 2, wk);
+			strcat(buffer, wk);
+			strcat(buffer, " ");
+			dtostrf(millGaussData[1], 6, 2, wk);
+			strcat(buffer, wk);
+			strcat(buffer, " ");
+			dtostrf(millGaussData[2], 6, 2, wk);
+			strcat(buffer, wk);
+			//Serial.println(buffer);
+			//str_msg.data = buffer;
+			//chatter.publish( &str_msg );
+			//nh.spinOnce();
 #endif
-	}
+		}
 
-	nh.spinOnce();
-	nextMillis = millis() + INTERVAL;
-  }
+		nh.spinOnce();
+		nextMillis = millis() + INTERVAL;
+	}
 }
