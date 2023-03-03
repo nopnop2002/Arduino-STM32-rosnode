@@ -104,7 +104,6 @@ Build with pill board
 |  STM32   |   UART  | UART-USB |  USB    | ROS HOST |
 |      PA9 |---------|RX        |=========|          |
 |      PA10|---------|TX        |         |          |
-|      5V  |---------|5V        |         |          |
 |      GND |---------|GND       |         |          |
 +----------+         +----------+         +----------+
 
@@ -113,7 +112,6 @@ Build with generic board
 |  STM32   |   UART  | UART-UART|  USB    | ROS HOST |
 |      PA2 |---------|RX        |=========|          |
 |      PA3 |---------|TX        |         |          |
-|      5V  |---------|5V        |         |          |
 |      GND |---------|GND       |         |          |
 +----------+         +----------+         +----------+
 ```
