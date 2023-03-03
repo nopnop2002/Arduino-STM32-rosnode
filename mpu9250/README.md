@@ -13,10 +13,81 @@ A demo that captures data from an i2c 9DoF imu and includes it in ROS.
 - UART-USB converter module   
 
 - MPU9250 9DoF MotionTracking device   
+ MPU9250 is a package that integrates the MPU6050 and a chip (AK8963) with a 3-axis magnetic sensor.   
  MPU9250 has an internal processing function called DMP (Digital Motion Processor).   
  But this sample doesn't use DMP, just 9DoF data.   
  Conversion from 9DoF data to quaternion uses imu_filter_madgwick on the host side.   
- Based on [this](https://github.com/kriswiner/MPU9250/tree/master/AK8963_as_slave) code.   
+ Use [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050) library to acquisition of data from MPU6050.   
+ Use [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/AK8963) library to acquisition of data from AK8963.   
+
+
+# Sensor calibration
+Connect ST-LINK adapter and STM32.
+```
++----------+         +----------+         +----------+
+|  STM32   |         | ST-LINK  |  USB    |   Host   |
+|      3.3V|---------|3.3V      |=========|          |
+|      GND |---------|GND       |         |          |
+|      PA13|---------|SWDIO     |         |          |
+|      PA14|---------|SWCLK     |         |          |
++----------+         +----------+         +----------+
+```
+
+
+Connect STM32 and HOST using a UART-USB converter to view calibration results.   
+Calibration results are output to the serial port.   
+Start a serial monitor on the host.   
+I used TeraTerm.   
+```
+Build with pill board
++----------+         +----------+         +----------+
+|  STM32   |   UART  | UART-USB |  USB    |   Host   |
+|      PA9 |---------|RX        |=========|          |
+|      PA10|---------|TX        |         |          |
+|      GND |---------|GND       |         |          |
++----------+         +----------+         +----------+
+
+Build with generic board
++----------+         +----------+         +----------+
+|  STM32   |   UART  | UART-UART|  USB    |   Host   |
+|      PA2 |---------|RX        |=========|          |
+|      PA3 |---------|TX        |         |          |
+|      GND |---------|GND       |         |          |
++----------+         +----------+         +----------+
+```
+
+Lay the sensor horizontally and perform the calibration.   
+IMU_Zero is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/IMU_Zero).   
+```
+$ git clone https://github.com/nopnop2002/Arduino-STM32-rosnode
+$ cd Arduino-STM32-rosnode/mpu9250/IMU_Zero
+$ pio run -t upload
+```
+
+It will take a few minutes for the calibration to complete.   
+The serial monitor should show results similar to the following.   
+If -- done -- is displayed, it is completed.    
+```
+....................    XAccel                  YAccel                          ZAccel                  XGyro                   YGyro                   ZGyro
+ [-2891,-2889] --> [-10,3]      [-445,-444] --> [-17,1] [697,698] --> [16381,16400]     [148,149] --> [-1,2]    [26,27] --> [-1,2]      [16,17] --> [-2,1]
+.................... [-2890,-2889] --> [-5,3]   [-445,-444] --> [-17,1] [697,698] --> [16375,16400]     [148,149] --> [0,2]     [26,27] --> [0,2]       [16,17] --> [-2,1]
+.................... [-2890,-2889] --> [-10,3]  [-445,-444] --> [-16,1] [697,698] --> [16373,16400]     [148,149] --> [0,2]     [26,27] --> [0,2]       [16,17] --> [-1,1]
+-------------- done --------------
+```
+
+The last line is your offset value.   
+We need 6 values XAccelOffset, YAccelOffset, ZAccelOffset, XGyroOffset, YGyroOffset, ZGyroOffset.
+In this example:
+```
+  mpu.setXAccelOffset(-3232);
+  mpu.setYAccelOffset(-464);
+  mpu.setZAccelOffset(688);
+  mpu.setXGyroOffset(151);
+  mpu.setYGyroOffset(23);
+  mpu.setZGyroOffset(18);
+```
+
+
 
 # Build Firmware
 Connect ST-LINK adapter and STM32.
