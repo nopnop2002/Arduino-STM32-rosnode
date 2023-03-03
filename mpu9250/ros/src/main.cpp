@@ -186,61 +186,61 @@ bool getMagData(int16_t *intMagData, float *microTesla, float *millGauss) {
 
 	//sprintf(buffer, "ak8963.getDataReady()=0x%x", ak8963.getDataReady());
 	//Serial.println(buffer);
-	if (ak8963.getDataReady()) {
-		//int16_t intMagData[3];
-		if (getMagInt(intMagData)) {
-			sprintf(buffer, "intMagData=%d %d %d", intMagData[0], intMagData[1], intMagData[2]);
-			//Serial.println(buffer);
-			str_msg.data = buffer;
-			chatter.publish( &str_msg );
-			//nh.spinOnce();
-
-			getMagTesla(intMagData, microTesla);
-			strcpy(buffer, "microTesla:");
-			dtostrf(microTesla[0], 6, 2, wk);
-			strcat(buffer, wk);
-			strcat(buffer, " ");
-			dtostrf(microTesla[1], 6, 2, wk);
-			strcat(buffer, wk);
-			strcat(buffer, " ");
-			dtostrf(microTesla[2], 6, 2, wk);
-			strcat(buffer, wk);
-			//Serial.println(buffer);
-			str_msg.data = buffer;
-			chatter.publish( &str_msg );
-			//nh.spinOnce();
-
-			getMagGauss(intMagData, millGauss);
-			strcpy(buffer, "millGauss:");
-			dtostrf(millGauss[0], 6, 2, wk);
-			strcat(buffer, wk);
-			strcat(buffer, " ");
-			dtostrf(millGauss[1], 6, 2, wk);
-			strcat(buffer, wk);
-			strcat(buffer, " ");
-			dtostrf(millGauss[2], 6, 2, wk);
-			strcat(buffer, wk);
-			//Serial.println(buffer);
-			str_msg.data = buffer;
-			chatter.publish( &str_msg );
-			//nh.spinOnce();
-
-			return true;
-		} else {
-			strcpy(buffer, "*****AK8963 magnetic sensor overflow*****");
-			//Serial.println(buffer);
-			str_msg.data = buffer;
-			chatter.publish( &str_msg );
-			//nh.spinOnce();
-			return false;
-		}
-	} else {
+	if (!ak8963.getDataReady()) {
 		sprintf(buffer, "ak8963.getDataReady()=0x%x", ak8963.getDataReady());
 		//Serial.println(buffer);
 		str_msg.data = buffer;
 		chatter.publish( &str_msg );
 		//nh.spinOnce();
 		strcpy(buffer, "*****AK8963 data not ready*****");
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+		//nh.spinOnce();
+		return false;
+	}
+
+
+	//int16_t intMagData[3];
+	if (getMagInt(intMagData)) {
+		sprintf(buffer, "intMagData=%d %d %d", intMagData[0], intMagData[1], intMagData[2]);
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+		//nh.spinOnce();
+
+		getMagTesla(intMagData, microTesla);
+		strcpy(buffer, "microTesla:");
+		dtostrf(microTesla[0], 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " ");
+		dtostrf(microTesla[1], 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " ");
+		dtostrf(microTesla[2], 6, 2, wk);
+		strcat(buffer, wk);
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+		//nh.spinOnce();
+
+		getMagGauss(intMagData, millGauss);
+		strcpy(buffer, "millGauss:");
+		dtostrf(millGauss[0], 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " ");
+		dtostrf(millGauss[1], 6, 2, wk);
+		strcat(buffer, wk);
+		strcat(buffer, " ");
+		dtostrf(millGauss[2], 6, 2, wk);
+		strcat(buffer, wk);
+		//Serial.println(buffer);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+		//nh.spinOnce();
+		return true;
+	} else {
+		strcpy(buffer, "*****AK8963 magnetic sensor overflow*****");
 		//Serial.println(buffer);
 		str_msg.data = buffer;
 		chatter.publish( &str_msg );
@@ -508,7 +508,7 @@ void loop() {
   dataSteps++;
   
   if (millis() > nextMillis) {
-    strcpy(buffer, "accel_sensitivity=");
+	strcpy(buffer, "accel_sensitivity=");
 	dtostrf(accel_sensitivity, 8, 2, wk);
 	strcat(buffer, wk);
 	strcat(buffer, " gyro_sensitivity=");
