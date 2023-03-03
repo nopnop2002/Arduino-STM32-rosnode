@@ -17,9 +17,9 @@ A demo that captures data from an i2c 9DoF imu and includes it in ROS.
  MPU9250 has an internal processing function called DMP (Digital Motion Processor).   
  But this sample doesn't use DMP, just 9DoF data.   
  Conversion from 9DoF data to quaternion uses imu_filter_madgwick on the host side.   
- Use [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050) library to acquisition of data from MPU6050.   
- Use [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/AK8963) library to acquisition of data from AK8963.   
 
+Use [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050) library to acquisition of data from MPU6050.   
+Use [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/AK8963) library to acquisition of data from AK8963.   
 IMU_Zero is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/IMU_Zero).   
 ros code is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/MPU6050_raw).   
 
