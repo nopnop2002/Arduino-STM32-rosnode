@@ -195,13 +195,24 @@ $ rosrun rosserial_python serial_node.py _port:=/dev/ttyUSB0 _baud:=115200
 ### Terminal 3
 ```
 $ rostopic echo /chatter
-data: "accelSteps=167 gyroSteps=167 magSteps=167"
 ---
-data: "ax= 0.00 ay= 0.00 az= 1.01"
+data: "accel_sensitivity=16384.00 gyro_sensitivity=   16.40"
 ---
-data: "gx=-0.00 gy= 0.00 gz=-0.00"
+data: "dataSteps=974"
 ---
-data: "mx=-300.33 my= 187.10 mz= 153.54"
+data: "ax_avr:  -0.01 ay_avr:   0.01 az_avr:   1.01"
+---
+data: "gx_avr:   0.00 gy_avr:  -0.00 gz_avr:  -0.00"
+---
+data: "roll:  0.54 pitch: -0.37 yaw: -7.96"
+---
+data: "magCalibration X: 1.21 Y: 1.20 Z: 1.16"
+---
+data: "intMagData=-14081 7680 2816"
+---
+data: "microTesla:-2557.68 1381.50 491.70"
+---
+data: "millGauss:-25566.41 13809.38 4915.00"
 ---
 
 $ rostopic echo /imu/data_raw
