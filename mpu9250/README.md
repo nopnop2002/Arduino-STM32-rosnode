@@ -20,6 +20,8 @@ A demo that captures data from an i2c 9DoF imu and includes it in ROS.
  Use [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050) library to acquisition of data from MPU6050.   
  Use [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/AK8963) library to acquisition of data from AK8963.   
 
+IMU_Zero is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/IMU_Zero).   
+ros code is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/MPU6050_DMP6).   
 
 # Sensor calibration
 Connect ST-LINK adapter and STM32.
@@ -57,7 +59,6 @@ Build with generic board
 ```
 
 Lay the sensor horizontally and perform the calibration.   
-IMU_Zero is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/IMU_Zero).   
 ```
 $ git clone https://github.com/nopnop2002/Arduino-STM32-rosnode
 $ cd Arduino-STM32-rosnode/mpu9250/IMU_Zero
@@ -109,8 +110,6 @@ README  ros_lib
 ```
 
 Set your offset in your code   
-ros code is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/MPU6050_DMP6).   
-
 ```
 $ cd ..
 $ vi src/main.cpp
