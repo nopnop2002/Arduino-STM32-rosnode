@@ -104,6 +104,7 @@ Build with pill board
 |  STM32   |   UART  | UART-USB |  USB    | ROS HOST |
 |      PA9 |---------|RX        |=========|          |
 |      PA10|---------|TX        |         |          |
+|      5V  |---------|5V        |         |          |
 |      GND |---------|GND       |         |          |
 +----------+         +----------+         +----------+
 
@@ -112,11 +113,13 @@ Build with generic board
 |  STM32   |   UART  | UART-UART|  USB    | ROS HOST |
 |      PA2 |---------|RX        |=========|          |
 |      PA3 |---------|TX        |         |          |
+|      5V  |---------|5V        |         |          |
 |      GND |---------|GND       |         |          |
 +----------+         +----------+         +----------+
 ```
 
-When the PlatformIO host and ROS host are the same, it will be as follows:
+When the PlatformIO host and ROS host are the same, it will be as follows:   
+___Do not supply power from both ST-LINK and UART-USB.___    
 ```
 +----------+         +----------+         +----------+
 |  STM32   |         | ST-LINK  |  USB    | ROS Host |
@@ -130,6 +133,7 @@ When the PlatformIO host and ROS host are the same, it will be as follows:
 |          |   UART  | UART-USB |  USB    |          |
 |      PA9 |---------|RX        |=========|          |
 |      PA10|---------|TX        |         |          |
+|      5V  |         |5V        |         |          |
 |      GND |---------|GND       |         |          |
 +----------+         +----------+         +----------+
 ```
