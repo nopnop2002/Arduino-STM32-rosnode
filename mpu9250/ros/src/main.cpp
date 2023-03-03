@@ -370,8 +370,8 @@ void getRawData() {
   int16_t ax,ay,az;
   int16_t gx,gy,gz;
   // read raw accel/gyro measurements from device
-  // The outputs of the accelerometer are in 16-bit sign interger(16384->1.0 -16384=-1.0)
-  // The outputs of the gyroscope are in degrees per second(dps)
+  // The accelerometer output is a 16-bit signed integer relative value.
+  // The gyroscope output is a relative value in degrees per second (dps).
   mpu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
 
   accel_raw[0] = ax;
@@ -385,7 +385,7 @@ void getRawData() {
   accel_real[0] = (float)ax / accel_sensitivity;
   accel_real[1] = (float)ay / accel_sensitivity;
   accel_real[2] = (float)az / accel_sensitivity;
-  // Convert relative degree to absolute radian
+  // Convert relative degree per second to absolute radian per second
   //gyro_real[0] = gx * 0.0174533;
   //gyro_real[1] = gy * 0.0174533;
   //gyro_real[2] = gz * 0.0174533;
