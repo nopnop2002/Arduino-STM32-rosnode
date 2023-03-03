@@ -21,6 +21,7 @@ A demo that captures data from an i2c 9DoF imu and includes it in ROS.
 - AL8963 3-axis Electronic Compass   
  Sensitivity adjustment data for each axis is stored to fuse ROM on shipment.   
  This value can be used to calculate adjusted measurement data.   
+ If you expect more accuracy, you need to calibrate in advance and know the deviation of the center point.   
 
 I used [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050) library to get data from MPU6050.   
 I used [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/AK8963) library to get data from AK8963.   
