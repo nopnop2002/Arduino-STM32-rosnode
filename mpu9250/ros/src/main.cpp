@@ -282,6 +282,9 @@ void setupMPU() {
 		}
 	}
 
+	// Set Digital Low Pass Filter
+	mpu.setDLPFMode(6);
+
 	// Get LSB Sensitivity
 	//Serial.print("getFullScaleAccelRange()=");
 	uint8_t _AccelRange = mpu.getFullScaleAccelRange();
@@ -501,7 +504,7 @@ void loop() {
 	ax_sum += accel_real[0];
 	ay_sum += accel_real[1];
 	az_sum += accel_real[2];
- 	gx_sum += gyro_real[0];
+	gx_sum += gyro_real[0];
 	gy_sum += gyro_real[1];
 	gz_sum += gyro_real[2];
 	dataSteps++;
