@@ -25,7 +25,7 @@ A demo that captures data from an i2c 6DoF imu and includes it in ROS.
 
 As for DMP, I used [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050) library.   
 IMU_Zero is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/IMU_Zero).   
-ros code is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/MPU6050_raw).   
+ros code is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/MPU6050_DMP6).   
 
 # Sensor calibration
 Connect ST-LINK adapter and STM32.
