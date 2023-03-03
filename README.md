@@ -131,7 +131,7 @@ ___Do not supply power from both ST-LINK and UART-USB.___
 |          |   UART  | UART-USB |  USB    |          |
 |      PA9 |---------|RX        |=========|          |
 |      PA10|---------|TX        |         |          |
-|      5V  |         |5V        |         |          |
+|      5V  |xxxxxxxxx|5V        |         |          |
 |      GND |---------|GND       |         |          |
 +----------+         +----------+         +----------+
 ```
