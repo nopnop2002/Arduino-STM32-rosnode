@@ -23,7 +23,9 @@ A demo that captures data from an i2c 6DoF imu and includes it in ROS.
  Since this sample uses DMP, it does not use a 3-axis magnetic sensor.   
  You can use this to get Euler angles and quaternions angles.   
 
- As for DMP, I used [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050) library.
+As for DMP, I used [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050) library.   
+IMU_Zero is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/IMU_Zero).   
+ros code is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/MPU6050_raw).   
 
 # Sensor calibration
 Connect ST-LINK adapter and STM32.
@@ -61,7 +63,6 @@ Build with generic board
 ```
 
 Lay the sensor horizontally and perform the calibration.   
-IMU_Zero is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/IMU_Zero).   
 ```
 $ git clone https://github.com/nopnop2002/Arduino-STM32-rosnode
 $ cd Arduino-STM32-rosnode/mpu6050/IMU_Zero
@@ -114,7 +115,6 @@ README  ros_lib
 ```
 
 Set your offset in your code   
-ros code is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/MPU6050_raw).   
 
 ```
 $ cd ..
