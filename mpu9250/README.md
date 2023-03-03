@@ -18,6 +18,10 @@ A demo that captures data from an i2c 9DoF imu and includes it in ROS.
  But this sample doesn't use DMP, just 9DoF data.   
  Conversion from 9DoF data to quaternion uses imu_filter_madgwick on the host side.   
 
+- AL8963 3-axis Electronic Compass   
+ Sensitivity adjustment data for each axis is stored to fuse ROM on shipment.   
+ This value can be used to calculate adjusted measurement data.   
+
 I used [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050) library to get data from MPU6050.   
 I used [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/AK8963) library to get data from AK8963.   
 IMU_Zero is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/IMU_Zero).   
