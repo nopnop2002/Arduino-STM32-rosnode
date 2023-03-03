@@ -114,7 +114,7 @@ README  ros_lib
 ```
 
 Set your offset in your code   
-ros code is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/MPU6050_DMP6).   
+ros code is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/MPU6050_raw).   
 
 ```
 $ cd ..
