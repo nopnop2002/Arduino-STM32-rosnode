@@ -22,7 +22,7 @@ There are two types of rotary encoders, but their functions are the same.
 |Out A||PB6|
 |Out B||PB7|
 |Switch||PB8|
-|3.3V||5V|
+|VCC||3.3V|
 |GND||GND|
 
 # Build Firmware
