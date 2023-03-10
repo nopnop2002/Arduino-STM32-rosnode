@@ -50,37 +50,6 @@ unsigned long nextMillis;
 char buffer[64];
 char wk[10];
 
-void write_mpu(byte add, byte data) {
-	Wire.beginTransmission(mpu_address);
-	Wire.write(add);
-	Wire.write(data);
-	Wire.endTransmission();
-}
-
-byte read_mpu(byte add) {
-	byte k;
-	Wire.beginTransmission(mpu_address);
-	Wire.write(add);
-	Wire.endTransmission();
-	Wire.requestFrom(mpu_address, 1);
-	while (Wire.available()) {
-		k = Wire.read();
-	}
-	return k;
-}
-
-byte read_mag(byte add) {
-	byte k;
-	Wire.beginTransmission(mag_address);
-	Wire.write(add);
-	Wire.endTransmission();
-	Wire.requestFrom(mag_address, 1);
-	while (Wire.available()) {
-		k = Wire.read();
-	}
-	return k;
-}
-
 bool getMagInt(int16_t *intData) {
 	strcpy(buffer, "magCalibration X:");
 	dtostrf(magCalibration[0], 5, 2, wk);
@@ -99,8 +68,10 @@ bool getMagInt(int16_t *intData) {
 	uint8_t rawData[7];
 	for (int i=0;i<7;i++) {
 		uint8_t reg = i + 0x03;
-		rawData[i] = read_mag(reg);
-		sprintf(buffer, "read_mag(0x%d)=%x", reg, rawData[i]);
+		uint8_t _raw;
+		I2Cdev::readByte(mag_address, reg, &_raw);
+		rawData[i] = _raw;
+		sprintf(buffer, "readByte(0x%d)=%x", reg, rawData[i]);
 		//Serial.println(buffer);
 		str_msg.data = buffer;
 		//chatter.publish( &str_msg );
@@ -160,7 +131,7 @@ bool getMagData(int16_t *intMagData, float *microTesla, float *millGauss) {
 		str_msg.data = buffer;
 		chatter.publish( &str_msg );
 		//nh.spinOnce();
-		write_mpu(0x37,0x02); // connect AK8963
+		I2Cdev::writeByte(mpu_address, 0x37, 0x02); // connect AK8963
 		delay(500);
 		return false;
 	}
@@ -178,7 +149,7 @@ bool getMagData(int16_t *intMagData, float *microTesla, float *millGauss) {
 		str_msg.data = buffer;
 		chatter.publish( &str_msg );
 		//nh.spinOnce();
-		write_mpu(0x37,0x02); // connect AK8963
+		I2Cdev::writeByte(mpu_address, 0x37, 0x02); // connect AK8963
 		delay(500);
 		return false;
 	}
@@ -316,7 +287,7 @@ void setupMPU() {
 void setupMAG() {
 	// Bypass Enable Configuration
 	// Connect AK8963
-	write_mpu(0x37,0x02);
+	I2Cdev::writeByte(mpu_address, 0x37, 0x02); // connect AK8963
 
 	// When user wants to change operation mode, transit to power-down mode first and then transit to other modes. 
 	// Goto Powerdown Mode
