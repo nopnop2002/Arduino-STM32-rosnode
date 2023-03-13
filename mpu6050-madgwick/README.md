@@ -160,21 +160,6 @@ linear_acceleration:
   z: -0.99072265625
 linear_acceleration_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 ---
-
-
-$ rostopic echo /imu/mag
-header:
-  seq: 1
-  stamp:
-    secs: 1677280291
-    nsecs: 667997104
-  frame_id: "imu"
-magnetic_field:
-  x: -3.6328125
-  y: 51.56640625
-  z: 5.8203125
-magnetic_field_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
----
 ```
 
 ### Conversion to Quatanion using madgwick filters
