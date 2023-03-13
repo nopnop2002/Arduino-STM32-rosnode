@@ -42,26 +42,13 @@ Connect ST-LINK adapter and STM32.
 Build rosserial_arduino Library
 ```
 $ git clone https://github.com/nopnop2002/Arduino-STM32-rosnode
-$ cd Arduino-STM32-rosnode/mpu9250
+$ cd Arduino-STM32-rosnode/mpu9250-madgwick
 $ cd lib
 $ rosrun rosserial_arduino make_libraries.py .
 $ ls
 README  ros_lib
 ```
 
-Set your offset in your code   
-```
-$ cd ..
-$ vi src/main.cpp
-# Change the offset values below:
-  // supply your own gyro offsets here, scaled for min sensitivity
-  mpu.setXAccelOffset(-2889);
-  mpu.setYAccelOffset(-444);
-  mpu.setZAccelOffset(698);
-  mpu.setXGyroOffset(149);
-  mpu.setYGyroOffset(27);
-  mpu.setZGyroOffset(17);
-```
 
 Build Firmware for pill board
 ```
