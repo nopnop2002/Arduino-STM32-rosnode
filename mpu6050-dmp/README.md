@@ -102,7 +102,7 @@ Connect ST-LINK adapter and STM32.
 Build rosserial_arduino Library
 ```
 $ git clone https://github.com/nopnop2002/Arduino-STM32-rosnode
-$ cd Arduino-STM32-rosnode/mpu6050
+$ cd Arduino-STM32-rosnode/mpu6050-dmp
 $ cd lib
 $ rosrun rosserial_arduino make_libraries.py .
 $ ls
