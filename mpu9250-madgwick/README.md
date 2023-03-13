@@ -273,7 +273,7 @@ Too little RAM.
 ```
 $ pio run -e uno
 Processing uno (platform: atmelavr; board: uno; framework: arduino)
---------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
 Verbose mode can be enabled via `-v, --verbose` option
 CONFIGURATION: https://docs.platformio.org/page/boards/atmelavr/uno.html
 PLATFORM: Atmel AVR (4.1.0) > Arduino Uno
@@ -297,6 +297,6 @@ Dependency Graph
 Building in release mode
 Checking size .pio/build/uno/firmware.elf
 Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
-RAM:   [==========]  153.9% (used 3151 bytes from 2048 bytes)
-Flash: [==========]  99.5% (used 32110 bytes from 32256 bytes)
+RAM:   [==========]  145.1% (used 2972 bytes from 2048 bytes)
+Flash: [=======   ]  74.8% (used 24128 bytes from 32256 bytes)
 ```
