@@ -1,4 +1,4 @@
-# mpu9250 rosnode
+# mpu9250-madgwick rosnode
 A demo that captures data from an i2c 9DoF imu and includes it in ROS.   
 
 
