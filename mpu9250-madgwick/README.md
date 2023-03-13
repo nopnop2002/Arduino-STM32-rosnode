@@ -13,7 +13,7 @@ A demo that captures data from an i2c 9DoF imu and includes it in ROS.
 - UART-USB converter module   
 
 - MPU9150/9150/9225/9250/9255 9DoF MotionTracking device   
- These are package that integrates the MPU6xxx and a chip (AK8963) with a 3-axis magnetic sensor.   
+ These are package that integrates the MPU6515 and a chip (AK8963) with a 3-axis magnetic sensor.   
  They have an internal processing function called DMP (Digital Motion Processor).   
  But this sample doesn't use DMP, just 9DoF data.   
  Conversion from 9DoF data to quaternion uses imu_filter_madgwick on the host side.   
@@ -23,7 +23,7 @@ A demo that captures data from an i2c 9DoF imu and includes it in ROS.
  This value can be used to calculate adjusted measurement data.   
  If you expect more accuracy, you need to calibrate in advance and know the deviation of the center point.   
 
-I used [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050) library to get data from MPU6050.   
+I used [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050) library to get data from MPU6515.   
 I used [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/AK8963) library to get data from AK8963.   
 ros code is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/MPU6050_raw).   
 
