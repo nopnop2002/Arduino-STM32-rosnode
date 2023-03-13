@@ -86,7 +86,8 @@ void getYawPitchRoll() {
   }
 }
 
-char frame_id[] = "mpu6050";
+//char frame_id[] = "mpu6050";
+char frame_id[] = "map";
 
 void getQuaternion() {
   char buffer[64];
@@ -121,7 +122,7 @@ void getQuaternion() {
     pose.pose.orientation.x = q.x;
     pose.pose.orientation.y = q.y;
     pose.pose.orientation.z = q.z;
-    pose.pose.orientation.z = q.w;
+    pose.pose.orientation.w = q.w;
     pubpose.publish( &pose );
   }
 }

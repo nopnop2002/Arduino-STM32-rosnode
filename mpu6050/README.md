@@ -12,16 +12,11 @@ A demo that captures data from an i2c 6DoF imu and includes it in ROS.
 
 - UART-USB converter module   
 
-- MPU6050 6DoF MotionTracking device   
- MPU6050 has an internal processing function called DMP (Digital Motion Processor).   
- You can use this to get Euler angles and quaternions angles.   
-
-- MPU9250 9DoF MotionTracking device   
- MPU9250 is a package that integrates the MPU6050 and a chip (AK8963) with a 3-axis magnetic sensor.   
- MPU9250 also has an internal processing function called DMP (Digital Motion Processor).   
- DMP of MPU9250 is compatible with DMP of MPU6050.   
+- MotionTracking device with DMP function   
+ MPU6000/6050/6500/6555/9150/9225/9250/9255 are abailable.   
+ MPU9150/9225/9250/9255PU9250 is a package that integrates a 3-axis magnetic sensor (AK8963).   
  Since this sample uses DMP, it does not use a 3-axis magnetic sensor.   
- You can use this to get Euler angles and quaternions angles.   
+ You can use these to get Euler angles and quaternions angles.   
 
 As for DMP, I used [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050) library.   
 IMU_Zero is based on [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050/examples/IMU_Zero).   
@@ -147,8 +142,8 @@ $ pio run -e genericSTM32F103C8 -t upload
 |:---|:---|:---|
 |3V3||3.3V|
 |GND||GND|
-|SDA||PB7|
 |SCL||PB6|
+|SDA||PB7|
 
 
 # Starting a ROS node
@@ -219,21 +214,21 @@ data: "x:  0.00 y:  0.00 z:  0.19 w:  0.98"
 
 $ rostopic echo pose
 header:
-  seq: 46281
+  seq: 2898
   stamp:
-    secs: 1677473986
-    nsecs: 445950029
-  frame_id: "mpu6050"
+    secs: 1678673250
+    nsecs:  48445880
+  frame_id: "map"
 pose:
   position:
     x: 0.0
     y: 0.0
     z: 0.0
   orientation:
-    x: 0.0009765625
-    y: 0.00244140625
-    z: 0.981506347656
-    w: 0.0
+    x: 0.00482177734375
+    y: 0.001953125
+    z: -0.0032958984375
+    w: 0.999938964844
 ---
 ```
 
@@ -241,7 +236,6 @@ pose:
 ### View Quatanion using rviz
 With rviz you can see the imu pose.   
 - start rviz   
-- Global Options->Fixed Frame->mpu6050   
 - Add->Pose   
 - Pose->Topic->/pose   
 - Pose->Shape->Axes   
