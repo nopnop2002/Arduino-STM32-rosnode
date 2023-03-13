@@ -68,8 +68,8 @@ $ pio run -e genericSTM32F103C8 -t upload
 |:---|:---|:---|
 |3V3||3.3V|
 |GND||GND|
-|SDA||PB7|
 |SCL||PB6|
+|SDA||PB7|
 
 
 # Starting a ROS node
@@ -194,7 +194,7 @@ magnetic_field_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 ---
 ```
 
-### Conversion to Quatanion
+### Conversion to Quatanion using madgwick filters
 Learn more about filters [here](http://wiki.ros.org/imu_filter_madgwick).
 ```
 $ sudo apt-get install ros-melodic-imu-tools
