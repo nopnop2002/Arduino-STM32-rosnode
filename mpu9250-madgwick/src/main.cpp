@@ -16,11 +16,11 @@ ros::Publisher chatter("chatter", &str_msg);
 ros::Publisher pubimu("imu/data_raw", &imu);
 ros::Publisher pubmag("imu/mag", &mag);
 
-#define mpu_address 0x68
-#define mag_address 0x0C
+#define MPU_ADDRESS 0x68
+#define MAG_ADDRESS 0x0C
 
 MPU6050 mpu;
-AK8963 ak8963(mag_address);
+AK8963 ak8963(MAG_ADDRESS);
 
 // Accel & Gyro scale factor
 float accel_sensitivity;
@@ -56,7 +56,7 @@ bool getMagInt(int16_t *intData) {
 	for (int i=0;i<7;i++) {
 		uint8_t reg = i + 0x03;
 		uint8_t _raw;
-		I2Cdev::readByte(mag_address, reg, &_raw);
+		I2Cdev::readByte(MAG_ADDRESS, reg, &_raw);
 		rawData[i] = _raw;
 		sprintf(buffer, "readByte(0x%d)=%x", reg, rawData[i]);
 		//Serial.println(buffer);
@@ -118,7 +118,7 @@ bool getMagData(int16_t *intMagData, float *microTesla, float *millGauss) {
 		str_msg.data = buffer;
 		chatter.publish( &str_msg );
 		//nh.spinOnce();
-		I2Cdev::writeByte(mpu_address, 0x37, 0x02); // connect AK8963
+		I2Cdev::writeByte(MPU_ADDRESS, 0x37, 0x02); // connect AK8963
 		delay(500);
 		return false;
 	}
@@ -136,7 +136,7 @@ bool getMagData(int16_t *intMagData, float *microTesla, float *millGauss) {
 		str_msg.data = buffer;
 		chatter.publish( &str_msg );
 		//nh.spinOnce();
-		I2Cdev::writeByte(mpu_address, 0x37, 0x02); // connect AK8963
+		I2Cdev::writeByte(MPU_ADDRESS, 0x37, 0x02); // connect AK8963
 		delay(500);
 		return false;
 	}
@@ -246,7 +246,7 @@ void setupMPU() {
 void setupMAG() {
 	// Bypass Enable Configuration
 	// Connect AK8963
-	I2Cdev::writeByte(mpu_address, 0x37, 0x02); // connect AK8963
+	I2Cdev::writeByte(MPU_ADDRESS, 0x37, 0x02); // connect AK8963
 
 	// When user wants to change operation mode, transit to power-down mode first and then transit to other modes. 
 	// Goto Powerdown Mode
@@ -358,6 +358,12 @@ void loop() {
 	dataSteps++;
   
 	if (millis() > nextMillis) {
+		uint8_t device;
+		I2Cdev::readByte(MPU_ADDRESS, MPU6050_RA_WHO_AM_I, &device);
+		sprintf(buffer, "device id is 0x%x", device);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+
 		strcpy(buffer, "accel_sensitivity=");
 		dtostrf(accel_sensitivity, 8, 2, wk);
 		strcat(buffer, wk);
