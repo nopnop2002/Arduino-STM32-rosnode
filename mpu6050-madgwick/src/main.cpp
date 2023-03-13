@@ -12,6 +12,8 @@ sensor_msgs::Imu imu;
 ros::Publisher chatter("chatter", &str_msg);
 ros::Publisher pubimu("imu/data_raw", &imu);
 
+#define MPU_ADDRESS 0x68
+
 MPU6050 mpu;
 
 // Accel & Gyro scale factor
@@ -118,6 +120,12 @@ void loop() {
 	dataSteps++;
   
 	if (millis() > nextMillis) {
+		uint8_t device;
+		I2Cdev::readByte(MPU_ADDRESS, MPU6050_RA_WHO_AM_I, &device);
+		sprintf(buffer, "device id is 0x%x", device);
+		str_msg.data = buffer;
+		chatter.publish( &str_msg );
+
 		strcpy(buffer, "accel_sensitivity=");
 		dtostrf(accel_sensitivity, 8, 2, wk);
 		strcat(buffer, wk);
