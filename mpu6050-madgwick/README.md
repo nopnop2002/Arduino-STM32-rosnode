@@ -14,7 +14,7 @@ A demo that captures data from an i2c 6DoF imu and includes it in ROS.
 
 - MPU6050 6DoF MotionTracking device   
  MPU6050 has an internal processing function called DMP (Digital Motion Processor).   
- But this sample doesn't use DMP, just 9DoF data.   
+ But this sample doesn't use DMP, just 6DoF data.   
  Conversion from 6DoF data to quaternion uses imu_filter_madgwick on the host side.   
 
 I used [this](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050) library to get data from MPU6050.   
