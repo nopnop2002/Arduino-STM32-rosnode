@@ -4,6 +4,8 @@
 #include <geometry_msgs/PoseStamped.h>
 #include <MPU6050_6Axis_MotionApps20.h>
 
+#define MPU_ADDRESS 0x68
+
 MPU6050 mpu;
 
 ros::NodeHandle  nh;
@@ -93,16 +95,16 @@ void getQuaternion() {
   //Serial.print(q.z);
   //Serial.print(",");
   //Serial.println(q.w);
-  strcpy(buffer, "x:");
+  strcpy(buffer, "q.x:");
   dtostrf(q.x, 6, 2, wk);
   strcat(buffer, wk);
-  strcat(buffer, " y:");
+  strcat(buffer, " q.y:");
   dtostrf(q.y, 6, 2, wk);
   strcat(buffer, wk);
-  strcat(buffer, " z:");
+  strcat(buffer, " q.z:");
   dtostrf(q.z, 6, 2, wk);
   strcat(buffer, wk);
-  strcat(buffer, " w:");
+  strcat(buffer, " q.w:");
   dtostrf(q.w, 6, 2, wk);
   strcat(buffer, wk);
   //Serial.println(buffer);
@@ -128,6 +130,12 @@ void setup() {
 }
 
 void loop() {
+  uint8_t device;
+  I2Cdev::readByte(MPU_ADDRESS, MPU6050_RA_WHO_AM_I, &device);
+  sprintf(buffer, "device id is 0x%x", device);
+  str_msg.data = buffer;
+  chatter.publish( &str_msg );
+
   if (mpu.dmpGetCurrentFIFOPacket(fifoBuffer)) { // Get the Latest packet
     getYawPitchRoll();
     getQuaternion();

@@ -207,10 +207,13 @@ $ rosrun rosserial_python serial_node.py _port:=/dev/ttyUSB0 _baud:=115200
 ### Terminal 3
 ```
 $ rostopic echo /chatter
-data: "x:  0.00 y:  0.00 z:  0.19 w:  0.98"
+data: "device id is 0x71"
 ---
-data: "x:  0.00 y:  0.00 z:  0.19 w:  0.98"
+data: "roll:  0.09 pitch: -0.27 yaw:  0.41"
 ---
+data: "q.x:  0.00 q.y:  0.00 q.z: -0.00 q.w:  1.00"
+---
+
 
 $ rostopic echo pose
 header:
